@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useGlobalContext } from '../../Context/SessionContext';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -29,9 +31,17 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+
+
+  const { setSignIn, setUser}= useGlobalContext()
+const navigate = useNavigate()
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    setUser([data.get("email"),"../../assets/avatar.jpg"])
+    setSignIn(true)
+navigate("/AdminPanel")
     console.log({
       email: data.get('email'),
       password: data.get('password'),
