@@ -12,13 +12,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link, NavLink } from 'react-router-dom';
-import { purple, red } from '@mui/material/colors';
 
-const primary = red[500]; // #f44336
-const accent = purple['A200'];
 
 const pages = ['Main', 'Projects', 'Class Notes'];
-const settings = ['SignIn', 'Logout'];
+const settings = ['SignIn', 'LogOut'];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -40,9 +37,9 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="sticky" color="primary" mode="dark" sx={{color:"success.light", backgroundColor:"warning.main"}}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+    <AppBar position="sticky" color="success" >
+      <Container maxWidth="xl" >
+        <Toolbar disableGutters >
           <Typography
             variant="h5"
             noWrap
