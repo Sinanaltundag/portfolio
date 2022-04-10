@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useGlobalContext } from '../../Context/SessionContext';
 import { useNavigate } from 'react-router-dom';
+import AvatarImg from "../../assets/avatar.jpg";
 
 function Copyright(props) {
   return (
@@ -33,13 +34,15 @@ const theme = createTheme();
 export default function SignIn() {
 
 
-  const {signIn, setSignIn, setUser}= useGlobalContext()
+  const {signIn, setSignIn, setUser, user}= useGlobalContext()
 const navigate = useNavigate()
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    setUser([data.get("email"),"../../assets/avatar.jpg"])
+    console.log(event)
+    if (event.target.id==="signin") {
+      const data = new FormData(event.currentTarget);
+    setUser({email:data.get("email"),avatar:"../../assets/avatar.jpg"})
     setSignIn(true)
     const userLoggedIn = {
       email: data.get('email'),
@@ -47,14 +50,23 @@ const navigate = useNavigate()
     }
     sessionStorage.setItem("user", JSON.stringify(userLoggedIn))
 navigate("/AdminPanel")
-  
+    } else {
+      setSignIn(false)
+      sessionStorage.clear();
+      navigate("/")
+
+    }
   };
 
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <Box
+        {
+          //kullanıcı girişi yapıldıysa logout sayfası
+          
+          signIn? (
+          <Box
           sx={{
             marginTop: 8,
             display: 'flex',
@@ -62,13 +74,45 @@ navigate("/AdminPanel")
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+<Avatar sx={{ m: 1, bgcolor: 'secondary.main', width:"80px", height:"80px" }} src={AvatarImg}>
+            
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Hello {user.email}
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Typography  variant="h6">
+            You are logged in. 
+          </Typography>
+            
+            <Button
+            id='logout'
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Log Out
+            </Button>
+       
+          </Box>
+</Box>
+
+
+        ):(
+          <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}>        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} id="signin" noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -94,6 +138,7 @@ navigate("/AdminPanel")
               label="Remember me"
             />
             <Button
+            id="login"
               type="submit"
               fullWidth
               variant="contained"
@@ -113,8 +158,10 @@ navigate("/AdminPanel")
                 </Link>
               </Grid>
             </Grid>
-          </Box>
-        </Box>
+          </Box></Box>
+        ) }
+  
+       
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>

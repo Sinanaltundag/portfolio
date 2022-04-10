@@ -19,30 +19,33 @@ const Skills = () => {
   const [coor, setCoor] = useState([])
   
   const handleMove =(e)=>{
-  console.log(e)
-  setCoor([e.pageX/10, e.pageY/10])
+  setCoor([-e.screenX/100, -e.screenY/100])
   }
+  const [scoor, setScoor] = useState([])
+  
+
   return (
-    <Grid container spacing={2} width="80vw" height="80vh" onMouseMove={handleMove}>
+    <Grid container spacing={2} width="80vw" height="80vh" sx={{overflowY:"auto"}}  onMouseMove={handleMove} >
     <Grid item md={12}>
     <Typography variant="h2" color="text.secondary">
       SKILLS
       </Typography>
     </Grid>
-    <Grid item md={8}>
-      <Item>md=8</Item>
+    <Grid item md={7}>
+      <Item>React, Hooks, Styled Components, Material UI, Custom Hooks, </Item>
     </Grid>
-    <Grid item md={4}>
-    <Card sx={{ maxWidth: 345 }}>
+    <Grid item md={5}>
+    <Card sx={{ minWidth: 345 }}>
       <CardActionArea>
-      <Box sx={{display: 'flex', alignItems: 'center',  filter:`drop-shadow(  -${coor[0]}px -${coor[1]}px 2px rgba(0, 0, 0, .7))`}}>
+      <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-evenly', width: '100%',  filter:`drop-shadow(  ${coor[0]}px ${coor[1]}px  5px rgba(0,0,0,0.5))`}}>
       
         <CardMedia
-        sx={{padding: '15px', textShadow:"2px 2px 2px rgba(0,0,0)", dropShadow:"3px 5px 2px black"}}
+        sx={{padding: '5px', textShadow:"2px 2px 2px rgba(0,0,0)"}}
           component="svg"
           height="150"
           image={reactSvg}
           alt="react"
+          width="140px"
         />
         <Typography variant="h4" color="text.secondary" fontSize="3rem">
       REACT
@@ -51,11 +54,10 @@ const Skills = () => {
         </Box>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            Frontend
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            Most popular component based Javascript library for building efective and fast user interfaces.
           </Typography>
         </CardContent>
       </CardActionArea>

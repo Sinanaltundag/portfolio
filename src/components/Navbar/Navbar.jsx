@@ -122,7 +122,7 @@ setting==="LogOut"&& setSignIn(false);
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {/* avatar get from user if signin */}
                 <Avatar
-                  alt={signIn ? user[0]?.toUpperCase():"Guest"}
+                  alt={signIn ? user.email?.toUpperCase():"Guest"}
                   src={signIn ? AvatarImg: null}
                 />
               </IconButton>

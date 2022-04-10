@@ -10,6 +10,10 @@ const [user, setUser] = useState([])
 useEffect(() => {
 const userLoggedIn = sessionStorage.getItem('user');
 userLoggedIn? setSignIn(true): setSignIn(false);
+
+console.log(userLoggedIn);
+setUser(JSON.parse(userLoggedIn))
+console.log(JSON.parse(userLoggedIn))
 }, [])
 
 
