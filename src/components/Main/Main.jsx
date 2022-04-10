@@ -3,6 +3,8 @@ import React from 'react'
 import { Animator, ScrollContainer, ScrollPage, batch, Fade, FadeIn, Move, MoveIn, MoveOut, Sticky, StickyIn, ZoomIn } from "react-scroll-motion";
 import Header from './Header';
 import HeaderBg from "../../assets/headerbg.jpg"
+import About from './About';
+import Skills from './Skills';
 
 const ZoomInScrollOut = batch(StickyIn(), FadeIn(), ZoomIn());
 const FadeUp = batch(Fade(), Move(), Sticky());
@@ -11,24 +13,24 @@ const FadeUp = batch(Fade(), Move(), Sticky());
 
 const Main = () => {
   return (
-    <div>
+    <Box sx={{backgroundColor:"gray"}}>
         <ScrollContainer>
   <ScrollPage page={0}>
     <Animator animation={batch(Fade(), Sticky(), MoveOut(0, -200))}>
-    <Container sx={{ width:"100vw", height:"100vh", textAlign: 'start', backgroundImage:`url(${HeaderBg})`, backgroundSize: "cover", backgroundPosition: "center",backgroundAttachment: "fixed", display: "flex", alignItems: "center", color: "darkred", textShadow:"0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15)"}}  >
+    <Box  sx={{ width:"100vw", height:"100vh", textAlign: 'start', backgroundImage:`url(${HeaderBg})`, backgroundSize: "cover", backgroundPosition: "center", backgroundAttachment:"fixed", display: "flex", alignItems: "center", color: "darkred", textShadow:"0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15)", boxShadow: "0px 0 55px 50px rgba(0, 0, 0, 0.8)"}}  >
       <Header/>
 
-    </Container>
+    </Box>
     </Animator>
   </ScrollPage>
   <ScrollPage page={1}>
     <Animator animation={ZoomInScrollOut}>
-      <span style={{ fontSize: "40px" }}>I'm FadeUpScrollOut ✨</span>
+      <About/>
     </Animator>
   </ScrollPage>
   <ScrollPage page={2}>
     <Animator animation={FadeUp}>
-      <span style={{ fontSize: "40px" }}>I'm FadeUp ⛅️</span>
+      <Skills/>
     </Animator>
   </ScrollPage>
   <ScrollPage page={3}>
@@ -51,7 +53,7 @@ const Main = () => {
     </Animator>
   </ScrollPage>
 </ScrollContainer>
-    </div>
+    </Box>
   )
 }
 

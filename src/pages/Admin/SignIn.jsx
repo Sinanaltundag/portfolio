@@ -33,7 +33,7 @@ const theme = createTheme();
 export default function SignIn() {
 
 
-  const { setSignIn, setUser}= useGlobalContext()
+  const {signIn, setSignIn, setUser}= useGlobalContext()
 const navigate = useNavigate()
 
   const handleSubmit = (event) => {
@@ -41,11 +41,13 @@ const navigate = useNavigate()
     const data = new FormData(event.currentTarget);
     setUser([data.get("email"),"../../assets/avatar.jpg"])
     setSignIn(true)
-navigate("/AdminPanel")
-    console.log({
+    const userLoggedIn = {
       email: data.get('email'),
       password: data.get('password'),
-    });
+    }
+    sessionStorage.setItem("user", JSON.stringify(userLoggedIn))
+navigate("/AdminPanel")
+  
   };
 
   return (

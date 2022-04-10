@@ -12,9 +12,9 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, NavLink } from "react-router-dom";
-import AlertDialogSlide from "../../helpers/Dialog";
 import { useGlobalContext } from "../../Context/SessionContext";
 import AvatarImg from "../../assets/avatar.jpg";
+import LogoutDialog from "../../helpers/LogoutDialog";
 
 const pages = ["Main", "Projects", "Class Notes"];
 const settings = ["SignIn"];
@@ -154,7 +154,7 @@ setting==="LogOut"&& setSignIn(false);
               ))}
               {/* Added Logout button if signin successful */}
               <MenuItem onClick={handleCloseUserMenu}>
-                {signIn && <AlertDialogSlide />}
+                {signIn && <LogoutDialog />}
               </MenuItem>
             </Menu>
           </Box>

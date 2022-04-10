@@ -13,7 +13,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function AlertDialogSlide() {
+export default function LogoutDialog() {
   const [open, setOpen] = React.useState(false);
   const { setSignIn}= useGlobalContext()
   const navigate = useNavigate()
@@ -27,6 +27,7 @@ export default function AlertDialogSlide() {
 const clickedBtn=e.target.textContent;
 if (clickedBtn==="Confirm") {
     setSignIn(false)
+    sessionStorage.clear();
     navigate("/")
 }
 

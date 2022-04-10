@@ -6,22 +6,12 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   const [signIn, setSignIn] = useState(false);
 const [user, setUser] = useState([])
-  const [taskData, setTaskData] = useState([]);
+// sayfa yenilendiğinde sessionstorage kontrolü
+useEffect(() => {
+const userLoggedIn = sessionStorage.getItem('user');
+userLoggedIn? setSignIn(true): setSignIn(false);
+}, [])
 
-  const getLocalStorage = () => {
-    localStorage.getItem("data") &&
-      setTaskData(JSON.parse(localStorage.getItem("data")));
-  };
-  const setLocalStorage = (data) => {
-    localStorage.setItem("data", JSON.stringify(data));
-  };
-  useEffect(() => {
-    getLocalStorage();
-  }, []);
-
-  useEffect(() => {
-    setLocalStorage(taskData);
-  }, [taskData]);
 
   return (
     <AppContext.Provider
