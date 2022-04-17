@@ -8,6 +8,7 @@ import Navbar from "../components/Navbar/Navbar";
 import Projects from "../components/Projects/Projects";
 import Page404 from "../helpers/Page404";
 import PrivateRouter from "./PrivateRouter";
+import SignUp from "../pages/Admin/SignUp";
 
 const Router = () => {
   return (
@@ -20,6 +21,7 @@ const Router = () => {
         <Route path="/Class%20Notes" element={<ClassNotes />} />
 {/*! signin sayfasına login yapan girmemeli */}
         <Route path="/SignIn" element={<SignIn />} />
+        <Route path="/SignUp" element={<SignUp />} />
 
         <Route path="/AdminPanel" element={<PrivateRouter />}>
           <Route path="" element={<AdminPanel />} />
