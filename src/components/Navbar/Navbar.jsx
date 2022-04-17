@@ -44,19 +44,19 @@ setting==="LogOut"&& setSignIn(false);
   } */
 
   return (
-    <AppBar position="sticky" color="success">
+    <AppBar position="sticky"  sx={{backgroundColor:"primary.dark", color:"text.primary"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
             variant="h5"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            sx={{ mr: 2, display: { xs: "none", sm: "flex" } }}
           >
             Sinan's Portfolio
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -82,7 +82,7 @@ setting==="LogOut"&& setSignIn(false);
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: "block", md: "none" },
+                display: { xs: "block", sm: "none" },
               }}
             >
               {pages.map((page) => (
@@ -100,14 +100,15 @@ setting==="LogOut"&& setSignIn(false);
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+            sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}
           >
             Sinan's Portfolio
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" } }}>
             {pages.map((page) => (
               <NavLink to={page} key={page}>
                 <Button
+                size="large"
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
