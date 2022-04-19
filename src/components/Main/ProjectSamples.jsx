@@ -5,17 +5,12 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
-import { Typography } from '@mui/material';
 
 export default function ProjectSamples({width1200}) {
   return (
     <ImageList sx={{  }}>
       <ImageListItem key="Subheader" cols={6}>
-        <ListSubheader component="div" sx={{backgroundColor:"primary.dark", color:"white", padding:1 }} >
-        <Typography variant="h4">
-          React
-        </Typography>
-        </ListSubheader>
+        <ListSubheader component="div" sx={{backgroundColor:"primary.dark", color:"white", fontSize:25 }} >React</ListSubheader>
       </ImageListItem>
       {itemData.map((item) => (
         <ImageListItem key={item.img}>

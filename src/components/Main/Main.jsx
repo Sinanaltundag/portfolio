@@ -20,6 +20,7 @@ import Header from "./Header";
 import About from "./About";
 import Skills from "./Skills";
 import ProjectSamples from "./ProjectSamples";
+import Contact from "./Contact";
 
 const ZoomInScrollOut = batch(StickyIn(), FadeIn(), ZoomIn());
 const FadeUp = batch(Fade(), Move(), Sticky());
@@ -78,11 +79,10 @@ console.log(b.precip)
         </ScrollPage>
         <ScrollPage page={4}>
           <Animator animation={batch(Fade(), Sticky())}>
-            <span style={{ fontSize: "40px" }}>Done</span>
+            <span style={{ fontSize: "40px" }}>CONTACT</span>
             <br />
             <span style={{ fontSize: "30px" }}>
-              There's FadeAnimation, MoveAnimation, StickyAnimation,
-              ZoomAnimation
+              <Contact/>
             </span>
           </Animator>
         </ScrollPage>
