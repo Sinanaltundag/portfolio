@@ -1,4 +1,4 @@
-import * as React from 'react';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,9 +11,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useGlobalContext } from '../../Context/SessionContext';
+import { SessionContext, useGlobalContext } from '../../Context/SessionContext';
 import { useNavigate,Link} from 'react-router-dom';
 import AvatarImg from "../../assets/avatar.jpg";
+import { login, loginWithGoogle, logout } from '../../auth/firebase';
+import { useContext } from 'react';
 
 
 
@@ -23,7 +25,7 @@ const theme = createTheme();
 
 export default function SignIn() {
 
-
+const {userInfo} = useContext(SessionContext)
   const {signIn, setSignIn, setUser, user}= useGlobalContext()
 const navigate = useNavigate()
 
@@ -32,20 +34,28 @@ const navigate = useNavigate()
     console.log(event)
     if (event.target.id==="signin") {
       const data = new FormData(event.currentTarget);
-    setUser({email:data.get("email"),avatar:"../../assets/avatar.jpg"})
-    setSignIn(true)
+    // setUser({email:data.get("email"),avatar:"../../assets/avatar.jpg"})
+    // setSignIn(true)
     const userLoggedIn = {
       email: data.get('email'),
       password: data.get('password'),
     }
-    sessionStorage.setItem("user", JSON.stringify(userLoggedIn))
-navigate("/AdminPanel")
+    login(userLoggedIn.email, userLoggedIn.password)
+    // sessionStorage.setItem("user", JSON.stringify(userLoggedIn))
+navigate("/")
     } else {
-      setSignIn(false)
-      sessionStorage.clear();
       navigate("/")
 
     }
+  };
+
+  const handleWithGoogle = () => {
+    loginWithGoogle();
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
   };
 
   return (
@@ -55,7 +65,7 @@ navigate("/AdminPanel")
         {
           //kullanıcı girişi yapıldıysa logout sayfası
           
-          signIn? (
+          userInfo? (
           <Box
           sx={{
             marginTop: 8,
@@ -68,7 +78,7 @@ navigate("/AdminPanel")
             
           </Avatar>
           <Typography component="h1" variant="h5">
-            Hello {user.email}
+            Hello {userInfo.email}
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <Typography  variant="h6">
@@ -81,6 +91,8 @@ navigate("/AdminPanel")
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={handleLogout}
+
             >
               Log Out
             </Button>
@@ -136,6 +148,17 @@ navigate("/AdminPanel")
             >
               Sign In
             </Button>
+            <Button
+                type="button"
+                fullWidth
+                variant="outlined"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={handleWithGoogle}
+              >
+                <Typography variant="button" mr={2} fontWeight="bold">
+                  with Google
+                </Typography>
+              </Button>
             <Grid container>
               <Grid item xs>
                 <Link to="/" variant="body2">
