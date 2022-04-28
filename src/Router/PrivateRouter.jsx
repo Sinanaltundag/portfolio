@@ -1,15 +1,17 @@
 
+import { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom'
+import { SessionContext } from '../Context/SessionContext';
 
 const PrivateRouter = () => {
 
-const user = JSON.parse(sessionStorage.getItem('user'))
-return user ? <Outlet/>: <Navigate to="/SignIn"/>;
-}
-export const LoginRouter = () => {
+    const {userInfo} = useContext(SessionContext)
 
-const user = JSON.parse(sessionStorage.getItem('user'))
-return user ? <Outlet/>: <Navigate to="/SignIn"/>;
+return userInfo ? <Outlet/>: <Navigate to="/SignIn"/>;
+}
+export const AdminRouter = () => {
+    const {userInfo} = useContext(SessionContext)
+return userInfo.email==="peykani@gmail.com" ? <Outlet/>: <Navigate to="/SignIn"/>;
 }
 
 export default PrivateRouter

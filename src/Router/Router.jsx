@@ -7,7 +7,7 @@ import Main from "../components/Main/Main";
 import Navbar from "../components/Navbar/Navbar";
 import Projects from "../components/Projects/Projects";
 import Page404 from "../helpers/Page404";
-import PrivateRouter from "./PrivateRouter";
+import PrivateRouter, { AdminRouter } from "./PrivateRouter";
 import SignUp from "../pages/Admin/SignUp";
 import { MyThemeContext, useGlobalContext } from "../Context/SessionContext";
 import { ThemeProvider } from "@mui/material";
@@ -29,7 +29,7 @@ const Router = () => {
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/SignUp" element={<SignUp />} />
 
-        <Route path="/AdminPanel" element={<PrivateRouter />}>
+        <Route path="/AdminPanel" element={<AdminRouter />}>
           <Route path="" element={<AdminPanel />} />
         </Route>
         <Route path="*" element={<Page404 />} />
