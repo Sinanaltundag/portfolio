@@ -9,21 +9,21 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useGlobalContext } from '../../Context/SessionContext';
+import { SessionContext, useGlobalContext } from '../../Context/SessionContext';
 import { useNavigate,Link} from 'react-router-dom';
 import AvatarImg from "../../assets/avatar.jpg";
-import { createUser } from '../../auth/firebase';
-
+import { createUser, loginWithGoogle, logout, updateUserProfile } from '../../auth/firebase';
+import { toast } from "react-toastify";
 
 
 
 
 // const theme = createTheme();
 
-export default function SignIn() {
+export default function SignUp() {
 
-
-  const {signIn, user}= useGlobalContext()
+const {userInfo} = React.useContext(SessionContext)
+  // const {signIn, user}= useGlobalContext()
 const navigate = useNavigate()
 
   const handleSubmit = (event) => {
@@ -31,7 +31,23 @@ const navigate = useNavigate()
     
     
       const data = new FormData(event.currentTarget);
-createUser(data.get("email"),data.get("password"))
+const user = {
+  displayName: data.get("displayName"),
+  email: data.get("email"),
+  password: data.get("password"),
+  photoURL: data.get("photoURL"),
+};
+console.log(user)
+createUser(user.email, user.password)
+  .then(() => {
+    updateUserProfile(user.displayName,user.photoURL)
+    
+  }).then(()=>
+    navigate("/")
+  )
+  .catch((error) => {
+    toast(error);
+  });
 
 
 
@@ -40,6 +56,15 @@ navigate("/SignIn")
     
   };
 
+  const handleWithGoogle = () => {
+    loginWithGoogle();
+  };
+
+const handleLogout =()=>{
+  logout()
+  navigate("/")
+}
+
   return (
     // <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -47,7 +72,7 @@ navigate("/SignIn")
         {
           //kullanıcı girişi yapıldıysa logout sayfası
           
-          signIn? (
+          userInfo? (
           <Box
           sx={{
             marginTop: 8,
@@ -60,7 +85,7 @@ navigate("/SignIn")
             
           </Avatar>
           <Typography component="h1" variant="h5">
-            Hello {user.email}
+            Hello {userInfo.email}
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <Typography  variant="h6">
@@ -69,10 +94,11 @@ navigate("/SignIn")
             
             <Button
             id='logout'
-              type="submit"
+              type="button"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={handleLogout}
             >
               Log Out
             </Button>
@@ -94,15 +120,15 @@ navigate("/SignIn")
           <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} id="signin" noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} id="signup"  sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
               fullWidth
-              id="fullName"
+              id="displayName"
               label="Full Name"
-              name="fullName"
-              autoComplete="fullName"
+              name="displayName"
+              autoComplete="displayName"
               autoFocus
             />
             <TextField
@@ -135,6 +161,14 @@ navigate("/SignIn")
               id="password2"
               autoComplete="current-password"
             />
+            <TextField
+              margin="normal"
+              fullWidth
+              id="photoURL"
+              label="Photo URL"
+              name="photoURL"
+              autoComplete="photoURL"
+            />
            
             <Button
             id="signUp"
@@ -146,6 +180,23 @@ navigate("/SignIn")
             >
               Sign Up
             </Button>
+              <Button
+                type="button"
+                fullWidth
+                variant="outlined"
+                sx={{ mt: 3, mb: 2 }}
+                onClick={handleWithGoogle}
+              >
+                <Typography
+                  variant="button"
+                  mr={2}
+                  fontWeight="bold"
+                 
+                >
+                  with Google
+                </Typography>
+               
+              </Button>
             <Grid container>
               <Grid item xs>
                 <Link to="/" variant="body2">
@@ -157,6 +208,7 @@ navigate("/SignIn")
                   {"Have an account? Sign In"}
                 </Link>
               </Grid>
+              
             </Grid>
           </Box></Box>
         ) }

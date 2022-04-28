@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import { useContext, useEffect } from "react";
 import { auth } from "./auth/firebase";
 import { MyThemeProvider, SessionContext } from "./Context/SessionContext";
-
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -24,6 +24,7 @@ useEffect(() => {
     const userInfo = auth.onAuthStateChanged((user) => {
      
       if (!user) {
+        setUserInfo("")
         return;
       }
       const userSum = {
@@ -35,7 +36,7 @@ useEffect(() => {
       setUserInfo(userSum)
     });
     return userInfo; //! clean-up function
-  }, []);
+  }, [setUserInfo]);
 
 
   return (

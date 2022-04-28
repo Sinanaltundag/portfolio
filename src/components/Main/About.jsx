@@ -9,7 +9,6 @@ const About = () => {
    <Card sx={{ display: "flex",borderRadius: "10px 100px / 120px", boxShadow: "0 0 5px 3px #1565C0", backgroundColor: "black", color:"primary.light"}}>
       <CardMedia sx={{width:"auto", height:"370px", objectFit:"cover", display: "flex", justifyContent: "center", filter:"hue-rotate(110deg)"}}
         component="img"
-        // height="400"
         
         image={aboutGif}
         alt="Work Hard"

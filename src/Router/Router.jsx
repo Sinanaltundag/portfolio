@@ -15,7 +15,6 @@ import { ThemeProvider } from "@mui/material";
 const Router = () => {
 
   const {theme}= useContext(MyThemeContext)
-  console.log(theme)
  
   return (
     <>

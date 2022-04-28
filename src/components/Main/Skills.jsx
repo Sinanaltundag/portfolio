@@ -82,7 +82,6 @@ const Skills = ({width1200}) => {
         <CardMedia
         sx={{ textShadow:"2px 2px 2px rgba(0,0,0)"}}
           component="svg"
-          // height="165px"
           image={sassSvg}
           alt="sass"
           width="200px"
@@ -105,7 +104,6 @@ const Skills = ({width1200}) => {
     </Grid>
     {/* row height  equalized */}
     <Grid item lg={7} sm={12} sx={{display:"grid", alignItems:"stretch"}}>
-      {/* <Item sx={ {height: '85%'}}> */}
       <Item >
       <SkillList/>
       </Item>

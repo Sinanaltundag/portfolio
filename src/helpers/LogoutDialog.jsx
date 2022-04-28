@@ -16,7 +16,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function LogoutDialog() {
   const [open, setOpen] = React.useState(false);
-  const { setSignIn}= useGlobalContext()
   const navigate = useNavigate()
 
   const handleClickOpen = () => {
@@ -28,6 +27,7 @@ export default function LogoutDialog() {
 const clickedBtn=e.target.textContent;
 if (clickedBtn==="Confirm") {
   logout()
+  
     // setSignIn(false)
     // sessionStorage.clear();
     navigate("/")
