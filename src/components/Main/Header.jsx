@@ -25,7 +25,7 @@ const Header = () => {
     .deleteChars(25)
     .typeString(" will be a Full Stack Developer soon 🔎")
       .callFunction(() => {
-        console.log('String typed out!');
+        // console.log('String typed out!');
       })
       .pauseFor(2500)
       .deleteAll()

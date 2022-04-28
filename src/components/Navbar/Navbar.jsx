@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, NavLink } from "react-router-dom";
-import { SessionContext, useGlobalContext } from "../../Context/SessionContext";
+import { MyThemeContext, SessionContext} from "../../Context/SessionContext";
 import AvatarImg from "../../assets/avatar.jpg";
 import LogoutDialog from "../../helpers/LogoutDialog";
 import  { MaterialUISwitch } from "./toggle";
@@ -24,7 +24,7 @@ const settings = ["SignIn", "SignUp"];
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { signIn, user, setActiveTheme,activeTheme } = useGlobalContext();
+  const { setActiveTheme,activeTheme } = React.useContext(MyThemeContext);
   const {userInfo}= React.useContext(SessionContext)
   console.log(userInfo)
 
@@ -140,8 +140,8 @@ setting==="LogOut"&& setSignIn(false);
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {/* avatar get from user if signin */}
                 <Avatar
-                  alt={signIn ? user.email?.toUpperCase():"Guest"}
-                  src={signIn ? AvatarImg: null}
+                  alt={userInfo ? userInfo.email?.toUpperCase():"Guest"}
+                  src={userInfo.photoURL ? AvatarImg: null}
                 />
               </IconButton>
             </Tooltip>
@@ -172,7 +172,7 @@ setting==="LogOut"&& setSignIn(false);
               ))}
               {/* Added Logout button if signin successful */}
               <MenuItem onClick={handleCloseUserMenu}>
-                {signIn && <LogoutDialog />}
+                {userInfo && <LogoutDialog />}
               </MenuItem>
             </Menu>
           </Box>

@@ -53,12 +53,14 @@ export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 
 export const createUser = (email, password) => {
+  toast("Signup Successful")
   return createUserWithEmailAndPassword(auth, email, password);
+  
 };
 
 export const login = (email, password) => {
+  toast("Login successful")
   return signInWithEmailAndPassword(auth, email, password);
-  
 };
 
 export const logout = () => {

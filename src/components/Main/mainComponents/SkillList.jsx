@@ -30,7 +30,7 @@ export default function SkillList() {
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <JsSvg />
+            <JsSvg width="100%" height="100%"/>
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary="JavaScript" secondary="DOM, Events, Loop Methods, Promises, Clean Code..." />

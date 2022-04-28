@@ -1,13 +1,13 @@
 import { createTheme } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext,  useState } from "react";
 
 
 const SessionContext = React.createContext();
 
 const SessionProvider = ({ children }) => {
   //!sign in kontrolü
-  const [signIn, setSignIn] = useState(false);
-const [user, setUser] = useState([])
+//   const [signIn, setSignIn] = useState(false);
+// const [user, setUser] = useState([])
 const [userInfo, setUserInfo] = useState([])
 // sayfa yenilendiğinde sessionstorage kontrolü
 // useEffect(() => {
@@ -30,13 +30,6 @@ const [userInfo, setUserInfo] = useState([])
   return (
     <SessionContext.Provider
       value={{
-        signIn,
-        setSignIn,
-        user, 
-        setUser,
-        // theme,
-        // setActiveTheme,
-        // activeTheme,
         userInfo,
         setUserInfo,
       }}

@@ -30,13 +30,6 @@ const ZoomUp = batch(Fade(0, 1), Move());
   const Main = () => {
   const width1200 = useMediaQuery('(max-width:1200px)');
 
-var S =function () {};
-S.prototype.precip="rain";
-var W = function(){};
-W.prototype= new S();
-W.prototype.precip="snow";
-var b= new W();
-console.log(b.precip)
 
   return (
     <Box sx={{ backgroundColor: "grey.600", color: "text.primary" }}>
