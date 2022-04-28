@@ -8,6 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../Context/SessionContext';
+import { logout } from '../auth/firebase';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -26,8 +27,9 @@ export default function LogoutDialog() {
     setOpen(false);
 const clickedBtn=e.target.textContent;
 if (clickedBtn==="Confirm") {
-    setSignIn(false)
-    sessionStorage.clear();
+  logout()
+    // setSignIn(false)
+    // sessionStorage.clear();
     navigate("/")
 }
 

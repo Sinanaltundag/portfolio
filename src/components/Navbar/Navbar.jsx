@@ -12,19 +12,21 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, NavLink } from "react-router-dom";
-import { useGlobalContext } from "../../Context/SessionContext";
+import { SessionContext, useGlobalContext } from "../../Context/SessionContext";
 import AvatarImg from "../../assets/avatar.jpg";
 import LogoutDialog from "../../helpers/LogoutDialog";
 import  { MaterialUISwitch } from "./toggle";
 import { ButtonGroup, FormControlLabel} from "@mui/material";
 
 const pages = ["Main", "Projects", "Class Notes"];
-const settings = ["SignIn"];
+const settings = ["SignIn", "SignUp"];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { signIn, user, setActiveTheme,activeTheme } = useGlobalContext();
+  const {userInfo}= React.useContext(SessionContext)
+  console.log(userInfo)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -92,11 +94,11 @@ setting==="LogOut"&& setSignIn(false);
                     <ButtonGroup
         orientation="vertical"
         aria-label="vertical contained button group"
-        variant="contained"
+        variant="outlined"
       >
                     <Link to={page}>
                       <Button  fullWidth>
-                  <Typography textAlign="center" variant="h5" fullWidth>
+                  <Typography textAlign="center" variant="h5" >
                       {page}
                   </Typography>
                       </Button>

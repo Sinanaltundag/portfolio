@@ -2,21 +2,54 @@ import { createTheme } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 
 
-const AppContext = React.createContext();
+const SessionContext = React.createContext();
 
-const AppProvider = ({ children }) => {
+const SessionProvider = ({ children }) => {
   //!sign in kontrolü
   const [signIn, setSignIn] = useState(false);
 const [user, setUser] = useState([])
+const [userInfo, setUserInfo] = useState([])
 // sayfa yenilendiğinde sessionstorage kontrolü
-useEffect(() => {
-const userLoggedIn = sessionStorage.getItem('user');
-userLoggedIn? setSignIn(true): setSignIn(false);
+// useEffect(() => {
+// const userLoggedIn = sessionStorage.getItem('user');
+// userLoggedIn? setSignIn(true): setSignIn(false);
 
-console.log(userLoggedIn);
-setUser(JSON.parse(userLoggedIn))
-console.log(JSON.parse(userLoggedIn))
-}, [])
+// console.log(userLoggedIn);
+// setUser(JSON.parse(userLoggedIn))
+// console.log(JSON.parse(userLoggedIn))
+// }, [])
+// //! theme değiştirme
+// const [activeTheme, setActiveTheme] = useState(true)
+      
+// const theme = createTheme({
+//   palette: {
+//     mode: activeTheme?'light':'dark',
+//   },
+// });
+
+  return (
+    <SessionContext.Provider
+      value={{
+        signIn,
+        setSignIn,
+        user, 
+        setUser,
+        // theme,
+        // setActiveTheme,
+        // activeTheme,
+        userInfo,
+        setUserInfo,
+      }}
+    >
+      {children}
+    </SessionContext.Provider>
+  );
+};
+
+const MyThemeContext = React.createContext();
+
+const MyThemeProvider = ({ children }) => {
+ 
 //! theme değiştirme
 const [activeTheme, setActiveTheme] = useState(true)
       
@@ -27,24 +60,22 @@ const theme = createTheme({
 });
 
   return (
-    <AppContext.Provider
+    <MyThemeContext.Provider
       value={{
-        signIn,
-        setSignIn,
-        user, 
-        setUser,
+        
         theme,
         setActiveTheme,
         activeTheme,
+       
       }}
     >
       {children}
-    </AppContext.Provider>
+    </MyThemeContext.Provider>
   );
 };
 
 export const useGlobalContext = () => {
-  return useContext(AppContext);
+  return useContext(SessionContext);
 };
 
-export { AppContext, AppProvider };
+export { SessionContext, SessionProvider,MyThemeContext,MyThemeProvider };
