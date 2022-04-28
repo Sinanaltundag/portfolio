@@ -1,8 +1,15 @@
 // import { createTheme, ThemeProvider } from "@mui/material";
 import "./App.css";
-import { AppProvider} from "./Context/SessionContext";
 // import { ThemeConProvider, useThemeContext } from "./Context/ThemeContext";
 import Router from "./Router/Router";
+import { ToastContainer } from "react-toastify";
+import { useContext, useEffect } from "react";
+import { auth } from "./auth/firebase";
+import { MyThemeProvider, SessionContext } from "./Context/SessionContext";
+
+
+
+
 
 // const darkTheme = createTheme({
 //   palette: {
@@ -12,14 +19,41 @@ import Router from "./Router/Router";
 
 function App() {
 // const {theme}=useGlobalContext()
+const {setUserInfo} = useContext(SessionContext)
+useEffect(() => {
+    const userInfo = auth.onAuthStateChanged((user) => {
+     
+      if (!user) {
+        return;
+      }
+      const userSum = {
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        uid: user.uid,
+      };
+      setUserInfo(userSum)
+    });
+    return userInfo; //! clean-up function
+  }, []);
+
 
   return (
     <div className="App">
-    <AppProvider>
-    {/* <ThemeProvider theme={theme}> */}
+    
+    <MyThemeProvider>
       <Router />
-      {/* </ThemeProvider> */}
-      </AppProvider>
+      </MyThemeProvider>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        newestOnTop
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        limit={2}
+      />
     </div>
   );
 }

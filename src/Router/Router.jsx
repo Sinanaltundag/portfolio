@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import AdminPanel from "../pages/Admin/AdminPanel";
 import SignIn from "../pages/Admin/SignIn";
@@ -9,13 +9,14 @@ import Projects from "../components/Projects/Projects";
 import Page404 from "../helpers/Page404";
 import PrivateRouter from "./PrivateRouter";
 import SignUp from "../pages/Admin/SignUp";
-import { useGlobalContext } from "../Context/SessionContext";
+import { MyThemeContext, useGlobalContext } from "../Context/SessionContext";
 import { ThemeProvider } from "@mui/material";
 
 const Router = () => {
 
-  const {theme}=useGlobalContext()
-  console.log(theme);
+  const {theme}= useContext(MyThemeContext)
+  console.log(theme)
+ 
   return (
     <>
     <ThemeProvider theme={theme}>
