@@ -1,9 +1,141 @@
-import React from 'react'
+import Container from "@mui/material/Container";
+import { Avatar, Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import { AddBlog, EditBlog } from "../../utils/dataFunctions";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { SessionContext } from "../../Context/SessionContext";
 
 const AdminPanel = () => {
-  return (
-    <div>AdminPanel</div>
-  )
-}
+  const {userInfo} = useContext(SessionContext)
+  const [mainTopic, setMainTopic] = useState([]);
+  const d = new Date();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const blog = location.state?.blog;
 
-export default AdminPanel
+  const topics ={
+    react : ["hooks", "components", "libraries"],
+   javascript : ["functions", "short-methods", "libraries"],
+   styling : ["css", "sass", "frameworks"],
+
+  } 
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const { title, detail, img } = {
+      title: data.get("title"),
+      detail: data.get("detail"),
+      img: data.get("img"),
+    };
+
+    const newBlog = {
+      ...blog,
+      title,
+      detail,
+      img,
+      author: userInfo?.email,
+      date: d.toDateString(),
+    };
+
+    blog ? EditBlog({ ...newBlog, id: blog.id }) : AddBlog(newBlog);
+    navigate("/");
+  };
+
+  const handleChange = (event) => {
+    setMainTopic(topics[event.target.value]);
+  };
+
+
+  return (
+      <Container
+        component="main"
+        maxWidth="sm"
+        sx={{
+          backgroundColor: "white",
+          borderRadius: "1rem",
+          boxShadow: "10px 10px 5px 1px black",
+          padding: " 10px 0",
+          marginTop: "4rem",
+        }}
+      >
+       
+        <Typography component="h1" variant="h5" width="100%">
+          {blog ? "Update Blog" : "New Blog"}
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+
+        <FormControl fullWidth margin="normal">
+        <InputLabel id="demo-simple-select-label">Main Topic</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          label="Main Topic"
+          // value={mainTopic}
+          defaultValue=""
+          onChange={handleChange}
+        >
+          <MenuItem value={"react"}>React</MenuItem>
+          <MenuItem value={"javascript"}>Javascript</MenuItem>
+          <MenuItem value={"styling"}>Styling</MenuItem>
+          <MenuItem value={"other"}>Other</MenuItem>
+        </Select>
+      </FormControl>
+        <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label2">Sub Topic</InputLabel>
+        <Select
+          labelId="demo-simple-select-label2"
+          id="demo-simple-select2"
+          label="Sub Topic"
+          defaultValue=""
+        >
+        {mainTopic?.map(subTopic=><MenuItem key={subTopic} value={subTopic}>{subTopic}</MenuItem>)}
+          
+        </Select>
+      </FormControl>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="title"
+            label="Title"
+            name="title"
+            autoComplete="title"
+            autoFocus
+            defaultValue={blog?.title}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="img"
+            label="Image URL"
+            id="img"
+            autoComplete="img"
+            defaultValue={blog?.img}
+          />
+          <TextField
+            id="detail"
+            label="Detail"
+            fullWidth
+            required
+            multiline
+            rows={8}
+            name="detail"
+            defaultValue={blog?.detail}
+          />
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            {blog ? "Update Blog" : "Add New Blog"}
+          </Button>
+        </Box>
+      </Container>
+  );
+};
+
+export default AdminPanel;

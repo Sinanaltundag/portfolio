@@ -52,15 +52,15 @@ setting==="LogOut"&& setSignIn(false);
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
-            variant="h3"
+            variant="h4"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: "none", sm: "flex" } }}
+            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
             Sinan's Portfolio
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}>
+          <Box sx={{ flexGrow: 1, display: { sm: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -86,7 +86,7 @@ setting==="LogOut"&& setSignIn(false);
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: "block", sm: "none" },
+                display: { sm: "block", md: "none" },
               }}
             >
               {pages.map((page) => (
@@ -94,11 +94,11 @@ setting==="LogOut"&& setSignIn(false);
                     <ButtonGroup
         orientation="vertical"
         aria-label="vertical contained button group"
-        variant="outlined"
+        fullWidth
       >
                     <Link to={page}>
-                      <Button  fullWidth>
-                  <Typography textAlign="center" variant="h5" >
+                      <Button  >
+                  <Typography textAlign="center"  >
                       {page}
                   </Typography>
                       </Button>
@@ -109,14 +109,14 @@ setting==="LogOut"&& setSignIn(false);
             </Menu>
           </Box>
           <Typography
-            variant="h3"
+            variant="h5"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}
+            sx={{ flexGrow: 1, display: { sm: "flex", md: "none" } }}
           >
             Sinan's Portfolio
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", sm: "flex" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <NavLink to={page} key={page}>
                 <Button
@@ -133,7 +133,7 @@ setting==="LogOut"&& setSignIn(false);
 
 <FormControlLabel
         control={<MaterialUISwitch sx={{ m: 1 }}  onChange={()=>setActiveTheme(!activeTheme)}/>}
-        label="MUI switch"
+        label="Dark Mode"
       />
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -171,9 +171,14 @@ setting==="LogOut"&& setSignIn(false);
                 </MenuItem>
               ))}
               {/* Added Logout button if signin successful */}
-              <MenuItem onClick={handleCloseUserMenu}>
-                {userInfo && <LogoutDialog />}
-              </MenuItem>
+              {userInfo &&<MenuItem onClick={handleCloseUserMenu}>
+                 <LogoutDialog />
+              </MenuItem>}
+              {userInfo.email==="peykani@gmail.com"&&<MenuItem onClick={handleCloseUserMenu}>
+              <Link to={"/adminPanel"}>
+                      <Button>Admin Panel</Button>
+                    </Link>
+              </MenuItem>}
             </Menu>
           </Box>
         </Toolbar>

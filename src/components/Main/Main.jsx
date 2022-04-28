@@ -1,5 +1,5 @@
 import { Box, Typography, useMediaQuery } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Animator,
   ScrollContainer,
@@ -29,7 +29,7 @@ const ZoomUp = batch(Fade(0, 1), Move());
   
   const Main = () => {
   const width1200 = useMediaQuery('(max-width:1200px)');
-
+  useEffect(function updateTitle() { document.title = "Portfolio"; });
 
   return (
     <Box sx={{ backgroundColor: "grey.600", color: "text.primary" }}>

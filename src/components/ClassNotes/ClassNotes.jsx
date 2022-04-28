@@ -1,98 +1,90 @@
-import React, { useEffect, useState } from 'react'
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import SwipeableViews from 'react-swipeable-views';
+import { useTheme } from '@mui/material/styles';
+import AppBar from '@mui/material/AppBar';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
-import "./aaa.css"
-
-
-
-const ClassNotes = () => {
-
-  //! sayfa title değiştirme bunu kullan
-  useEffect(function updateTitle() { document.title = "deneme sayfası"; });
-
-  const [coor, setCoor] = useState([])
-  console.log(coor)
-
-const handleMove =(e)=>{
-setCoor([e.pageX/10, e.pageY/10])
-}
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
 
   return (
-    <div onMouseMove={handleMove}>
-
-{/* <img src={SvgRes} alt="" style={{filter: `drop-shadow( -${coor[0]}px -${coor[1]}px 2px rgba(0, 0, 0, .7))`}}/>
-<img src={CssSvg} alt="" />
-<HtmlSvg width="100" style={{filter: `drop-shadow( -${coor[0]}px -${coor[1]}px 2px rgba(0, 0, 0, .7))`}}/>
-
-<ReactSvg width="500" style={{filter: `drop-shadow( -${coor[0]}px -${coor[1]}px 2px rgba(0, 0, 0, .7))`}}/>
-<GoSvg width="150"/>
-
-<img src={sassSvg} alt="" style={{width: '100px'}} /> */}
-
-<p>aaa</p>
-
-<div className="bbb">div</div>
-<div className="bbb ccc">div</div>
-
-<section>
-
-  <p>paragraph 1</p>
-
-  <h2>Heading</h2>
-
-  <p id="heading" style={{backgroundColor:"pink"}}>paragraph 2</p>
-
-  <p>paragraph 3</p>
-
-</section>
-<div className="ddd">
-<div id="div1">Some text...</div>
-</div>
-
-<p className="rem">fefaesdf</p>
-
-  <p className="em">fedsfsedfsadf</p>
-  <form action="">
-    <input type="text" defaultValue={"aaa"} />
-  </form>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
     </div>
-  )
+  );
 }
 
-export default ClassNotes
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `full-width-tab-${index}`,
+    'aria-controls': `full-width-tabpanel-${index}`,
+  };
+}
+
+export default function ClassNotes() {
+  const theme = useTheme();
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const handleChangeIndex = (index) => {
+    setValue(index);
+  };
+
+  return (
+    <Box sx={{ bgcolor: 'background.paper', width: "100%" }}>
+      <AppBar position="static">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="secondary"
+          textColor="inherit"
+          variant="fullWidth"
+          aria-label="full width tabs example"
+          centered
+        >
+          <Tab label="Item One" {...a11yProps(0)} />
+          <Tab label="Item Two" {...a11yProps(1)} />
+          <Tab label="Item Three" {...a11yProps(2)} />
+        </Tabs>
+      </AppBar>
+      <SwipeableViews
+        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        index={value}
+        onChangeIndex={handleChangeIndex}
+      >
+        <TabPanel value={value} index={0} dir={theme.direction}>
+          Item One
+        </TabPanel>
+        <TabPanel value={value} index={1} dir={theme.direction}>
+          Item Two
+        </TabPanel>
+        <TabPanel value={value} index={2} dir={theme.direction}>
+          Item Three
+        </TabPanel>
+      </SwipeableViews>
+    </Box>
+  );
+}

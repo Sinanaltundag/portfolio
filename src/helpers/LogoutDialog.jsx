@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../Context/SessionContext';
 import { logout } from '../auth/firebase';
 
@@ -38,7 +38,7 @@ if (clickedBtn==="Confirm") {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button  onClick={handleClickOpen} sx={{textDecoration: "underline"}}>
         Log Out
       </Button>
       <Dialog

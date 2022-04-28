@@ -17,6 +17,7 @@
     "react-router-dom": "6",
     "react-scripts": "5.0.0",
     "react-scroll-motion": "^0.2.6",
+    "react-swipeable-views": "^0.14.0",
     "react-toastify": "^8.2.0",
     "typewriter-effect": "^2.18.2",
     "web-vitals": "^2.1.0"
