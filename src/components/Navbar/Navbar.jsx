@@ -15,6 +15,8 @@ import { Link, NavLink } from "react-router-dom";
 import { useGlobalContext } from "../../Context/SessionContext";
 import AvatarImg from "../../assets/avatar.jpg";
 import LogoutDialog from "../../helpers/LogoutDialog";
+import  { MaterialUISwitch } from "./toggle";
+import { ButtonGroup, FormControlLabel} from "@mui/material";
 
 const pages = ["Main", "Projects", "Class Notes"];
 const settings = ["SignIn"];
@@ -22,7 +24,7 @@ const settings = ["SignIn"];
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { signIn, user } = useGlobalContext();
+  const { signIn, user, setActiveTheme,activeTheme } = useGlobalContext();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -44,11 +46,11 @@ setting==="LogOut"&& setSignIn(false);
   } */
 
   return (
-    <AppBar position="sticky"  sx={{backgroundColor:"primary.dark", color:"text.primary"}}>
+    <AppBar position="sticky"  sx={{ color:"text.primary"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
-            variant="h5"
+            variant="h3"
             noWrap
             component="div"
             sx={{ mr: 2, display: { xs: "none", sm: "flex" } }}
@@ -87,17 +89,25 @@ setting==="LogOut"&& setSignIn(false);
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
+                    <ButtonGroup
+        orientation="vertical"
+        aria-label="vertical contained button group"
+        variant="contained"
+      >
                     <Link to={page}>
-                      <Button>{page}</Button>
-                    </Link>
+                      <Button  fullWidth>
+                  <Typography textAlign="center" variant="h5" fullWidth>
+                      {page}
                   </Typography>
+                      </Button>
+                    </Link>
+                      </ButtonGroup>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
           <Typography
-            variant="h6"
+            variant="h3"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}
@@ -117,7 +127,12 @@ setting==="LogOut"&& setSignIn(false);
               </NavLink>
             ))}
           </Box>
+          
 
+<FormControlLabel
+        control={<MaterialUISwitch sx={{ m: 1 }}  onChange={()=>setActiveTheme(!activeTheme)}/>}
+        label="MUI switch"
+      />
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

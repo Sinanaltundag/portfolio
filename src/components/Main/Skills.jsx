@@ -2,7 +2,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Box, CardActionArea, Container, Grid, Paper, useMediaQuery } from '@mui/material';
+import { Box, CardActionArea, Container, Grid, Paper} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import reactSvg from "../../assets/svg/react-2.svg"
 import sassSvg from "../../assets/svg/sass-1.svg"

@@ -9,10 +9,16 @@ import Projects from "../components/Projects/Projects";
 import Page404 from "../helpers/Page404";
 import PrivateRouter from "./PrivateRouter";
 import SignUp from "../pages/Admin/SignUp";
+import { useGlobalContext } from "../Context/SessionContext";
+import { ThemeProvider } from "@mui/material";
 
 const Router = () => {
+
+  const {theme}=useGlobalContext()
+  console.log(theme);
   return (
     <>
+    <ThemeProvider theme={theme}>
       <Navbar />
       <Routes>
         <Route path="/" element={<Main />} />
@@ -28,6 +34,7 @@ const Router = () => {
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>
+      </ThemeProvider>
     </>
   );
 };

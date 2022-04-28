@@ -23,7 +23,7 @@ import { createUser } from '../../auth/firebase';
 export default function SignIn() {
 
 
-  const {signIn, setSignIn, setUser, user}= useGlobalContext()
+  const {signIn, user}= useGlobalContext()
 const navigate = useNavigate()
 
   const handleSubmit = (event) => {

@@ -5,7 +5,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 
 import Divider from '@mui/material/Divider';
-import {HtmlSvg,JsSvg,CssSvg,GoSvg,PythonSvg,BsSvg,SassSvg,ReactSvg} from '../../../assets/svg/SvgIcons'
+import {HtmlSvg,JsSvg,ReactSvg} from '../../../assets/svg/SvgIcons'
 
 
 export default function SkillList() {
