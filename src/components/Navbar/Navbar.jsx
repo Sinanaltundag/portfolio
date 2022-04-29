@@ -12,11 +12,12 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, NavLink } from "react-router-dom";
-import { MyThemeContext, SessionContext} from "../../Context/SessionContext";
+import {useSession} from "../../Context/SessionContext";
 import AvatarImg from "../../assets/avatar.jpg";
 import LogoutDialog from "../../helpers/LogoutDialog";
 import  { MaterialUISwitch } from "./toggle";
 import { ButtonGroup, FormControlLabel} from "@mui/material";
+import { useTheme } from "../../Context/ThemeContext";
 
 const pages = ["Main", "Projects", "Class Notes"];
 const settings = ["SignIn", "SignUp"];
@@ -24,8 +25,8 @@ const settings = ["SignIn", "SignUp"];
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { setActiveTheme,activeTheme } = React.useContext(MyThemeContext);
-  const {userInfo}= React.useContext(SessionContext)
+  const { setActiveTheme,activeTheme } = useTheme();
+  const {userInfo}= useSession()
   console.log(userInfo)
 
   const handleOpenNavMenu = (event) => {
@@ -141,7 +142,7 @@ setting==="LogOut"&& setSignIn(false);
                 {/* avatar get from user if signin */}
                 <Avatar
                   alt={userInfo ? userInfo.email?.toUpperCase():"Guest"}
-                  src={userInfo.photoURL ? AvatarImg: null}
+                  src={userInfo?.photoURL ? AvatarImg: null}
                 />
               </IconButton>
             </Tooltip>
@@ -174,7 +175,7 @@ setting==="LogOut"&& setSignIn(false);
               {userInfo &&<MenuItem onClick={handleCloseUserMenu}>
                  <LogoutDialog />
               </MenuItem>}
-              {userInfo.email==="peykani@gmail.com"&&<MenuItem onClick={handleCloseUserMenu}>
+              {userInfo?.email==="peykani@gmail.com"&&<MenuItem onClick={handleCloseUserMenu}>
               <Link to={"/adminPanel"}>
                       <Button>Admin Panel</Button>
                     </Link>

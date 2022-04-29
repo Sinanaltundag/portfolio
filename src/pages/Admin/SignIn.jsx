@@ -11,11 +11,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { SessionContext, useGlobalContext } from '../../Context/SessionContext';
+import {  useSession } from '../../Context/SessionContext';
 import { useNavigate,Link} from 'react-router-dom';
 import AvatarImg from "../../assets/avatar.jpg";
-import { login, loginWithGoogle, logout } from '../../auth/firebase';
-import { useContext } from 'react';
+// import { login, loginWithGoogle, logout } from '../../auth/firebase';
+
 
 
 
@@ -25,8 +25,7 @@ const theme = createTheme();
 
 export default function SignIn() {
 
-const {userInfo} = useContext(SessionContext)
-  const {signIn, setSignIn, setUser, user}= useGlobalContext()
+const {userInfo, login, loginWithGoogle, logout} = useSession()
 const navigate = useNavigate()
 
   const handleSubmit = (event) => {

@@ -8,25 +8,16 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { SessionContext, useGlobalContext } from "../../Context/SessionContext";
+import {  useSession } from "../../Context/SessionContext";
 import { useNavigate, Link } from "react-router-dom";
 import AvatarImg from "../../assets/avatar.jpg";
-import {
-  auth,
-  createUser,
-  loginWithGoogle,
-  logout,
-  updateUserProfile,
-  userObserver,
-} from "../../auth/firebase";
+
 import { toast } from "react-toastify";
-import { useContext, useEffect, useState } from "react";
-import { updateProfile } from "firebase/auth";
 
 // const theme = createTheme();
 
 export default function SignUp() {
-  const { userInfo } = useContext(SessionContext);
+  const { userInfo,createUser, loginWithGoogle, logout} = useSession();
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
