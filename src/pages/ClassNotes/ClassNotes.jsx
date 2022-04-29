@@ -7,6 +7,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import ReactNotes from './ReactNotes';
+import JavascriptNotes from './JavascriptNotes';
+import StylingNotes from './StylingNotes';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -21,7 +24,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -76,13 +79,13 @@ export default function ClassNotes() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          Item One
+          <ReactNotes/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          Item Two
+          <JavascriptNotes/>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          Item Three
+          <StylingNotes/>
         </TabPanel>
       </SwipeableViews>
     </Box>
