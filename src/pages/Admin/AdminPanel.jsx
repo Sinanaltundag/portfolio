@@ -1,12 +1,14 @@
 import Container from "@mui/material/Container";
-import { Avatar, Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
+import {  Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { AddBlog, EditBlog } from "../../utils/dataFunctions";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
-import { SessionContext } from "../../Context/SessionContext";
+import {  useState } from "react";
+import {  useSession } from "../../Context/SessionContext";
+import { useBlog } from "../../Context/DataContext";
 
 const AdminPanel = () => {
-  const {userInfo} = useContext(SessionContext)
+  const {userInfo} = useSession()
+  const {addBlog} = useBlog()
   const [mainTopic, setMainTopic] = useState([]);
   const d = new Date();
   const navigate = useNavigate();
@@ -23,7 +25,9 @@ const AdminPanel = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const { title, detail, img } = {
+    const { title, detail, img, maintopic, subtopic } = {
+      maintopic:data.get("mainTopic"),
+      subtopic:data.get("subTopic"),
       title: data.get("title"),
       detail: data.get("detail"),
       img: data.get("img"),
@@ -31,15 +35,17 @@ const AdminPanel = () => {
 
     const newBlog = {
       ...blog,
+      subtopic,
       title,
       detail,
       img,
       author: userInfo?.email,
       date: d.toDateString(),
+      
     };
-
-    blog ? EditBlog({ ...newBlog, id: blog.id }) : AddBlog(newBlog);
-    navigate("/");
+console.log(newBlog);
+    blog ? EditBlog({ ...newBlog, id: blog.id }) : addBlog(newBlog, maintopic);
+    // navigate("/");
   };
 
   const handleChange = (event) => {
@@ -71,6 +77,7 @@ const AdminPanel = () => {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           label="Main Topic"
+          name="mainTopic"
           // value={mainTopic}
           defaultValue=""
           onChange={handleChange}
@@ -88,6 +95,7 @@ const AdminPanel = () => {
           id="demo-simple-select2"
           label="Sub Topic"
           defaultValue=""
+          name="subTopic"
         >
         {mainTopic?.map(subTopic=><MenuItem key={subTopic} value={subTopic}>{subTopic}</MenuItem>)}
           
