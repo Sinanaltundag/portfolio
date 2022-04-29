@@ -6,9 +6,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import { Link, useNavigate } from 'react-router-dom';
-import { useGlobalContext } from '../Context/SessionContext';
-import { logout } from '../auth/firebase';
+import {  useNavigate } from 'react-router-dom';
+import { useSession } from '../Context/SessionContext';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -17,7 +16,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function LogoutDialog() {
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate()
-
+const {logout} = useSession()
   const handleClickOpen = () => {
     setOpen(true);
   };
