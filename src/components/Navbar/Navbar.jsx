@@ -48,8 +48,9 @@ const Navbar = () => {
 setting==="LogOut"&& setSignIn(false);
   } */
 
+
   return (
-    <AppBar position="sticky"  sx={{ color:"text.primary"}}>
+    <AppBar position="fixed"  sx={{ color:"text.primary"}} >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography

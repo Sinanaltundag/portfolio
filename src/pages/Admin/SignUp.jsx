@@ -8,16 +8,17 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import {  useSession } from "../../Context/SessionContext";
+import { useSession } from "../../Context/SessionContext";
 import { useNavigate, Link } from "react-router-dom";
 import AvatarImg from "../../assets/avatar.jpg";
 
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 // const theme = createTheme();
 
 export default function SignUp() {
-  const { userInfo,createUser, loginWithGoogle, logout} = useSession();
+  const { userInfo, createUser, loginWithGoogle, logout } = useSession();
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
@@ -31,13 +32,17 @@ export default function SignUp() {
       confirmPassword: data.get("password2"),
       photoURL: data.get("photoURL"),
     };
-    if (user.password===user.confirmPassword&&user.password.length>5) {
-      
-      createUser(user.email, user.password);
+    console.log(user);
+    if (user.password === user.confirmPassword && user.password.length > 5) {
+      createUser(user.email, user.password, user.displayName);
     } else {
-      toast("Your password must be at least 6 characters and must match 'confirm password' ")
+      toast(
+        "Your password must be at least 6 characters and must match 'confirm password' "
+      );
     }
   };
+
+
   //! kullanıcı adı ve fotoğrafını kayıt esnasında ekleme yapılamadı
   // useEffect(() => {
   //   updateUserProfile(newUser?.displayName,newUser?.photoURL)

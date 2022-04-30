@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import  { useContext, useState, useEffect, createContext } from "react";
 import { toast } from "react-toastify";
 import { auth, googleProvider } from "../helpers/firebaseConnect";
@@ -13,12 +13,22 @@ export function SessionProvider({ children }) {
   const [userInfo, setUserInfo] = useState();
   const [loading, setLoading] = useState(true);
 
-  function createUser(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password);
-  }
-
   function login(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
+  }
+
+  async function createUser(email, password, displayName) {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(auth.currentUser, {
+        displayName: displayName,
+        photoURL: "",
+      });
+      
+    } catch (err) {
+      alert(err.message);
+    }
+    // return signInWithEmailAndPassword(auth, email, password);
   }
 
   function logout() {

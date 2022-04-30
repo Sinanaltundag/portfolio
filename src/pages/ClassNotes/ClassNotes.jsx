@@ -10,10 +10,11 @@ import Box from '@mui/material/Box';
 import ReactNotes from './ReactNotes';
 import JavascriptNotes from './JavascriptNotes';
 import StylingNotes from './StylingNotes';
+import { useBlog } from '../../Context/DataContext';
+import { Outlet } from 'react-router-dom';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -47,9 +48,25 @@ function a11yProps(index) {
 export default function ClassNotes() {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-
+  const {setActiveTopic} = useBlog()
+  
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    console.log(newValue);
+    switch (newValue) {
+      case 0:
+        setActiveTopic("react");
+        break;
+      case 1:
+        setActiveTopic("javascript");
+        break;
+      case 2:
+        setActiveTopic("styling");
+        break;
+    
+      default:
+        break;
+    }
   };
 
   const handleChangeIndex = (index) => {
@@ -58,6 +75,7 @@ export default function ClassNotes() {
 
   return (
     <Box sx={{ bgcolor: 'background.paper', width: "100%" }}>
+
       <AppBar position="static">
         <Tabs
           value={value}
@@ -68,9 +86,9 @@ export default function ClassNotes() {
           aria-label="full width tabs example"
           centered
         >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
+          <Tab label="React" {...a11yProps(0)} onClick={console.log()} />
+          <Tab label="Javascript" {...a11yProps(1)} />
+          <Tab label="Styling" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -88,6 +106,7 @@ export default function ClassNotes() {
           <StylingNotes/>
         </TabPanel>
       </SwipeableViews>
+      
     </Box>
   );
 }
