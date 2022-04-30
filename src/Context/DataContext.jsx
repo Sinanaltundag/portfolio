@@ -1,4 +1,4 @@
-import { onValue, push, ref, remove, set } from "firebase/database";
+import { onValue, push, ref, remove, set, update } from "firebase/database";
 import  { useContext, useState, useEffect, createContext } from "react";
 import { toast } from "react-toastify";
 import { firebaseDB } from "../helpers/firebaseConnect";
@@ -11,7 +11,7 @@ export function useBlog() {
 
 export function BlogProvider({ children }) {
   const [currentBlogs, setCurrentBlogs] = useState();
-  const [isLoading, setIsLoading] = useState(true)
+const [activeTopic, setActiveTopic] = useState("react")  
 
   function addBlog(newBlog,dbName) {
     
@@ -30,9 +30,11 @@ export function BlogProvider({ children }) {
   toast("Record Deleted");
   }
 
-  function updateBlog(id, data) {
-    const contactRef = firebaseDB.ref("blogs").child(id);
-    contactRef.update(data);
+  function editBlog(blog, dbName) {
+    const updates = {};
+    updates[dbName + "/" + blog.id] = blog;
+    toast("Record Updated");
+    return update(ref(firebaseDB), updates);
   }
 
 /*   useEffect(() => {
@@ -57,8 +59,10 @@ export function BlogProvider({ children }) {
     currentBlogs,
     getOneBlog,
     deleteOneBlog,
-    updateBlog,
+    editBlog,
     setCurrentBlogs,
+    activeTopic, 
+    setActiveTopic,
   };
 
   return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;
