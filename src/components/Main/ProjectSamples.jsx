@@ -5,15 +5,34 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
+import movieSm from "../../assets/react-movie-sm.jpg"
 
-export default function ProjectSamples({width1200}) {
+//! responsive component creating
+// const RespImageListItem = styled(ImageListItem)(({ theme }) => ({
+//   // padding: theme.spacing(2),
+
+//   [theme.breakpoints.down('lg')]: {
+//     backgroundColor: red[500],
+//     gridColumn: 2,
+//   },
+//   [theme.breakpoints.up('lg')]: {
+//     backgroundColor: blue[500],
+//     gridColumn: 4,
+    
+//   },
+ 
+// }));
+
+
+export default function ProjectSamples({width1200,reactProjects}) {
+
   return (
     <ImageList sx={{  }}>
-      <ImageListItem key="Subheader" cols={6}>
-        <ListSubheader component="div" sx={{backgroundColor:"primary.dark", color:"white", fontSize:25 }} >React</ListSubheader>
+      <ImageListItem key="Subheader" cols={width1200?2:4} >
+        <ListSubheader component="div" sx={{backgroundColor:"primary.dark", color:"white", fontSize:25,  }} >React</ListSubheader>
       </ImageListItem>
-      {itemData.map((item) => (
-        <ImageListItem key={item.img}>
+      {reactProjects.map((item) => (
+        <ImageListItem key={item.img} sx={{ cursor:"pointer"}}  >
           <img
             src={`${item.img}?w=248&fit=crop&auto=format`}
             srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
@@ -57,19 +76,7 @@ const itemData = [
     title: 'Camera',
     author: '@helloimnik',
   },
-  {
-    img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
-    title: 'Coffee',
-    author: '@nolanissac',
-    cols: 2,
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
-    title: 'Hats',
-    author: '@hjrc33',
-    cols: 2,
-  },
-  {
+   {
     img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
     title: 'Honey',
     author: '@arwinneil',

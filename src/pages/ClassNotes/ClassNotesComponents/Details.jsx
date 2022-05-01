@@ -17,7 +17,7 @@ export default function Details() {
   const navigate = useNavigate();
   const location = useLocation();
   const blog = location.state.blog;
-  const { id, title, date, img, comments, detail, author,rating,like } = blog;
+  const { id, title, date, img, comments, detail, author } = blog;
 
   const { userInfo } = useSession();
   const { deleteOneBlog, activeTopic } = useBlog();

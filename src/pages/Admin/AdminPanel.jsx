@@ -1,7 +1,7 @@
 import Container from "@mui/material/Container";
 import {  Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
-import { AddBlog, EditBlog } from "../../utils/dataFunctions";
-import { useLocation, useNavigate } from "react-router-dom";
+import {  EditBlog } from "../../utils/dataFunctions";
+import { useLocation } from "react-router-dom";
 import {  useState } from "react";
 import {  useSession } from "../../Context/SessionContext";
 import { useBlog } from "../../Context/DataContext";
@@ -11,7 +11,6 @@ const AdminPanel = () => {
   const {addBlog} = useBlog()
   const [mainTopic, setMainTopic] = useState([]);
   const d = new Date();
-  const navigate = useNavigate();
   const location = useLocation();
   const blog = location.state?.blog;
 

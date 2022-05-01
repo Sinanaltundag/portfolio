@@ -13,7 +13,6 @@ import { useNavigate, Link } from "react-router-dom";
 import AvatarImg from "../../assets/avatar.jpg";
 
 import { toast } from "react-toastify";
-import { useEffect } from "react";
 
 // const theme = createTheme();
 
