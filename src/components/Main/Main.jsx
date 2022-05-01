@@ -20,6 +20,7 @@ import About from "./About";
 import Skills from "./Skills";
 import ProjectSamples from "./ProjectSamples";
 import Contact from "./Contact";
+import {useBlog} from "../../Context/DataContext"
 
 const ZoomInScrollOut = batch(StickyIn(), FadeIn(), ZoomIn());
 const FadeUp = batch(Fade(), Move(), Sticky());
@@ -30,6 +31,8 @@ const ZoomUp = batch(Fade(0, 1), Move());
   const Main = () => {
   const width1200 = useMediaQuery('(max-width:1200px)');
   useEffect(function updateTitle() { document.title = "Portfolio"; });
+const {reactProjects}= useBlog()
+
 
   return (
     <Box sx={{ backgroundColor: "grey.600", color: "text.primary" }}>
@@ -56,16 +59,16 @@ const ZoomUp = batch(Fade(0, 1), Move());
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              height: "90%",
+              height: "100%",
             }}
           >
             <span >
           <Typography variant="h2">
             PROJECTS
           </Typography>
-          <Animator animation={ZoomUp}><ProjectSamples width1200={width1200} /></Animator>
-              <Animator animation={MoveOut(1000, 0)}><ProjectSamples width1200={width1200} /></Animator>
-              <Animator animation={MoveOut(-1000, 0)}><ProjectSamples width1200={width1200} /></Animator>
+          <Animator animation={ZoomUp}><ProjectSamples width1200={width1200} reactProjects={reactProjects} /></Animator>
+              {/* <Animator animation={MoveOut(1000, 0)}><ProjectSamples width1200={width1200} /></Animator>
+             {!width1200&& <Animator animation={MoveOut(-1000, 0)}><ProjectSamples width1200={width1200} /></Animator>} */}
             </span>
           </div>
         </ScrollPage>

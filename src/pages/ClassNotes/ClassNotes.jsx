@@ -5,13 +5,11 @@ import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import ReactNotes from './ReactNotes';
 import JavascriptNotes from './JavascriptNotes';
 import StylingNotes from './StylingNotes';
 import { useBlog } from '../../Context/DataContext';
-import { Outlet } from 'react-router-dom';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

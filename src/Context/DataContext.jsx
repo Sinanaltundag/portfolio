@@ -1,7 +1,8 @@
-import { onValue, push, ref, remove, set, update } from "firebase/database";
-import  { useContext, useState, useEffect, createContext } from "react";
+import { push, ref, remove, set, update } from "firebase/database";
+import  { useContext, useState,  createContext } from "react";
 import { toast } from "react-toastify";
 import { firebaseDB } from "../helpers/firebaseConnect";
+import movieSm from "../assets/react-movie-sm.jpg"
 
 const BlogContext = createContext();
 
@@ -51,7 +52,34 @@ const [activeTopic, setActiveTopic] = useState("react")
       setIsLoading(false);
     });
   }, []); */
-
+  const reactProjects = [
+    {
+      img: {movieSm},
+      url: "",
+      title: 'Breakfast',
+      author: '@Sinan',
+      details:"",
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
+      title: 'Burger',
+      author: '@rollelflex_graphy726',
+    },
+    {
+      img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
+      title: 'Camera',
+      author: '@helloimnik',
+    },
+     {
+      img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
+      title: 'Honey',
+      author: '@arwinneil',
+      rows: 2,
+      cols: 2,
+      featured: true,
+    },
+  
+  ];
 
 
   const value = {
@@ -63,6 +91,7 @@ const [activeTopic, setActiveTopic] = useState("react")
     setCurrentBlogs,
     activeTopic, 
     setActiveTopic,
+    reactProjects,
   };
 
   return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;

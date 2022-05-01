@@ -25,7 +25,7 @@ console.log(activeTopic);
           setCurrentBlogs(blogs);
           setIsLoading(false);
         });
-      }, [setCurrentBlogs]);
+      }, [setCurrentBlogs,activeTopic]);
 
 console.log(currentBlogs)
 

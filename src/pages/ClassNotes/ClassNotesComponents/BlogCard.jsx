@@ -1,11 +1,10 @@
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { AccountCircle } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Box, IconButton, Rating } from "@mui/material";
+import { IconButton, Rating } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 // import CommentBox from './CommentBox';
