@@ -33,7 +33,7 @@ const ZoomUp = batch(Fade(0, 1), Move());
   const Main = () => {
   const {width1200} = useTheme();
   useEffect(function updateTitle() { document.title = "Portfolio"; });
-const {reactProjects}= useBlog()
+const {reactProjects, javasicriptProjects, htmlCssProjects}= useBlog()
 
 
   return (
@@ -65,12 +65,12 @@ const {reactProjects}= useBlog()
             }}
           >
             <Box >
-          <Typography variant="h2">
+          <Typography variant={`${width1200?"h4":"h3"}`} >
             PROJECTS
           </Typography>
-          <Animator animation={ZoomUp}><ProjectSamples width1200={width1200} reactProjects={reactProjects} sx={{ cursor: "pointer"}} /></Animator>
-              {/* <Animator animation={MoveOut(1000, 0)}><ProjectSamples width1200={width1200} /></Animator>
-             {!width1200&& <Animator animation={MoveOut(-1000, 0)}><ProjectSamples width1200={width1200} /></Animator>} */}
+          <Animator animation={MoveOut(-1000, 0)} ><ProjectSamples width1200={width1200} projects={reactProjects} sx={{ cursor: "pointer"}} /></Animator>
+              <Animator animation={MoveOut(1000, 0)}><ProjectSamples width1200={width1200} projects={javasicriptProjects}/></Animator>
+             {!width1200&& <Animator animation={ZoomUp} ><ProjectSamples width1200={width1200} projects={htmlCssProjects}/></Animator>}
             </Box>
           </div>
         </ScrollPage>
@@ -85,11 +85,10 @@ const {reactProjects}= useBlog()
             }}
           >
           <Animator animation={Zoom( 2, 1 )}>
-            <span style={{ fontSize: "40px" }}>CONTACT</span>
-            <br />
-            <span style={{ fontSize: "30px" }}>
+          <Typography variant={`${width1200?"h4":"h3"}`} >
+            Contact
+          </Typography>
               <Contact/>
-            </span>
           </Animator>
           </Container>
         </ScrollPage>

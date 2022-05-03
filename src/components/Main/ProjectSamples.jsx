@@ -48,7 +48,7 @@ const HtmlTooltip = styled(({ className, ...props }) => (
   },
 }));
 
-export default function ProjectSamples({width1200,reactProjects}) {
+export default function ProjectSamples({width1200,projects}) {
   const [open, setOpen] = React.useState(false);
   const [projectData, setProjectData] = React.useState([])
   const handleOpen = (e, item) => {
@@ -58,12 +58,12 @@ export default function ProjectSamples({width1200,reactProjects}) {
   }
 
   return (
-    <ImageList sx={{  }}>
+    <ImageList sx={{ marginTop:0 }}>
       <ProjectModal open={open} setOpen={setOpen} data={projectData}/>
       <ImageListItem key="Subheader" cols={width1200?2:4} >
         <ListSubheader component="div" sx={{backgroundColor:"primary.dark", color:"white", fontSize:25,  }} >React</ListSubheader>
       </ImageListItem>
-      {reactProjects.map((item) => (
+      {projects.map((item) => (
         <ImageListItem key={item.img} sx={{ cursor:"pointer", width:250, height:150}} onClick={(e) =>handleOpen(e,item)} >
         
           <Styledimg
