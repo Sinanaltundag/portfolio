@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material";
+import { createTheme, useMediaQuery } from "@mui/material";
 import { createContext, useContext, useState } from "react";
 
 const MyThemeContext = createContext();
@@ -14,6 +14,12 @@ const theme = createTheme({
   },
 });
 
+const width1200 = useMediaQuery('(max-width:1200px)');
+const width1000 = useMediaQuery('(max-width:1000px)');
+const width800 = useMediaQuery('(max-width:800px)');
+const width600 = useMediaQuery('(max-width:600px)');
+
+
   return (
     <MyThemeContext.Provider
       value={{
@@ -21,7 +27,10 @@ const theme = createTheme({
         theme,
         setActiveTheme,
         activeTheme,
-       
+        width1200,
+        width1000,
+        width800,
+        width600,
       }}
     >
       {children}
