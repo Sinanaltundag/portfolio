@@ -39,14 +39,15 @@ export default function ProjectModal({ open, setOpen, data }) {
             <Typography id="transition-modal-title" variant="h6" component="h2">
               {data.title}
             </Typography>
+            {/* get images from public dynamic */}
             <img src={process.env.PUBLIC_URL + `${data.img}`} alt="" />
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
               <ul>
-                {data.details?.map((item) => (
-                  <li>{item}</li>
+                {data.details?.map((item,i) => (
+            <Typography key={i} id="transition-modal-description" sx={{ mt: 2 }}>
+                  <li >{item}</li>
+            </Typography>
                 ))}
               </ul>
-            </Typography>
             <Box
       sx={{
         display: 'flex',

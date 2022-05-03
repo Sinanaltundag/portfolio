@@ -121,6 +121,119 @@ export function BlogProvider({ children }) {
       aim: "Responsive, Router, Template",
     },
   ];
+  const javasicriptProjects = [
+    {
+      img: "./images/js-School-form.jpg",
+      title: "School Registration Form",
+      author: "@Sinan",
+      details: [
+        "Project aims to create a School & Student Registration Form.",
+        "Use local storage for all data",
+        "On landing page must enter School information",
+        "Controls on load locale storage to fetch data",
+        "Dynamic object structure",
+        "Backup, Restore, Clear all functions",
+        "Search function whole class or single student",
+        "Delete, update, create functions",
+        "A lot of controls like unique number, ascending class numbers etc",
+        "Styled with Bootstrap5",
+      ],
+      url: "https://sinanaltundag.github.io/school-form/",
+      aim: "Dynamic Objects, Create Methods, Local Storage, Backups, Restore, Bootstrap, Error Handling",
+    },
+    {
+      img: "./images/js-image-search.jpg",
+      title: "Blog App",
+      author: "@Sinan",
+      details: [
+        "Detailed Fetch api",
+        "Bootstrap 5",
+        "Improved Css",
+        "Reusable elements",
+           ],
+      url: "https://sinanaltundag.github.io/smallprojects/image-search/",
+      aim: "Axios, Api details, Bootstrap, Css",
+    },
+    {
+      img: "./images/js-calculator.jpg",
+      title: "Calculator",
+      author: "@Sinan",
+      details: [
+        "Basic Calculator",
+        "Improved Dom selector, event trigger functions",
+        "Improved Error Handling",
+        "Math operations",
+        "Real-time clock",
+        "Css",
+      ],
+      url: "https://sinanaltundag.github.io/smallprojects/js-projects/calculator/",
+      aim: "Math operations, Error handling, Clock, Events",
+    },
+    {
+      img: "./images/js-checkout.jpg",
+      title: "Checkout Page",
+      author: "@Sinan",
+      details: [
+        "Control Dom elements",
+        "Synchronization between elements on events trigger",
+        "Controlled delete item",
+        "Loading effect",
+      ],
+      url: "https://sinanaltundag.github.io/smallprojects/js-projects/Checkout_Page/",
+      aim: "Reaction on events, Dom element selection, Css",
+    },
+  ];
+  const htmlCssProjects = [
+    {
+      img: "./images/css-flexmedia.jpg",
+      title: "Responsive Website Template",
+      author: "@Sinan",
+      details: [
+        "Project aims to create a responsive template.",
+        "Css",
+     
+      ],
+      url: "https://sinanaltundag.github.io/smallprojects/flexmedia/",
+      aim: "Responsive, Css",
+    },
+    {
+      img: "./images/css-grid-page.jpg",
+      title: "Grid Template",
+      author: "@Sinan",
+      details: [
+        "Complicated Grid design",
+  
+      ],
+      url: "https://sinanaltundag.github.io/smallprojects/grid-page/",
+      aim: "Grid design",
+    },
+    {
+      img: "./images/css-team-members.jpg",
+      title: "Team Members Page",
+      author: "@Sinan",
+      details: [
+        "Improved Css",
+        "Dark Mode",
+        "Responsive design",
+
+      ],
+      url: "https://sinanaltundag.github.io/smallprojects/team-members/",
+      aim: "Css, Dark mode, Responsive",
+    },
+    {
+      img: "./images/sass-portfolio2.jpg",
+      title: "Portfolio",
+      author: "@Sinan",
+      details: [
+        "Portfolio styled with Sass",
+        "Responsive design",
+        "Improved Css"
+       
+      ],
+      url: "https://sinanaltundag.github.io/smallprojects/sass-projects/Sass-Portfolio/",
+      aim: "Responsive, Portfolio, Sass & Scss",
+    },
+  ];
 //! dynamic svg control
   const skillListFrontend = [
     {
@@ -167,8 +280,11 @@ export function BlogProvider({ children }) {
     activeTopic,
     setActiveTopic,
     reactProjects,
+    htmlCssProjects,
+    javasicriptProjects,
     skillListStyling,
     skillListFrontend,
+
   };
 
   return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;
