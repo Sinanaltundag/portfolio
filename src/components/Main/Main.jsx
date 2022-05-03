@@ -1,4 +1,4 @@
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Box, Container, Typography, useMediaQuery } from "@mui/material";
 import React, { useEffect } from "react";
 import {
   Animator,
@@ -13,6 +13,7 @@ import {
   Sticky,
   StickyIn,
   ZoomIn,
+  Zoom,
   
 } from "react-scroll-motion";
 import Header from "./Header";
@@ -21,6 +22,7 @@ import Skills from "./Skills";
 import ProjectSamples from "./ProjectSamples";
 import Contact from "./Contact";
 import {useBlog} from "../../Context/DataContext"
+import { useTheme } from "../../Context/ThemeContext";
 
 const ZoomInScrollOut = batch(StickyIn(), FadeIn(), ZoomIn());
 const FadeUp = batch(Fade(), Move(), Sticky());
@@ -29,7 +31,7 @@ const ZoomUp = batch(Fade(0, 1), Move());
   //! mediaquery added 
   
   const Main = () => {
-  const width1200 = useMediaQuery('(max-width:1200px)');
+  const {width1200} = useTheme();
   useEffect(function updateTitle() { document.title = "Portfolio"; });
 const {reactProjects}= useBlog()
 
@@ -62,24 +64,34 @@ const {reactProjects}= useBlog()
               height: "100%",
             }}
           >
-            <span >
+            <Box >
           <Typography variant="h2">
             PROJECTS
           </Typography>
-          <Animator animation={ZoomUp}><ProjectSamples width1200={width1200} reactProjects={reactProjects} /></Animator>
+          <Animator animation={ZoomUp}><ProjectSamples width1200={width1200} reactProjects={reactProjects} sx={{ cursor: "pointer"}} /></Animator>
               {/* <Animator animation={MoveOut(1000, 0)}><ProjectSamples width1200={width1200} /></Animator>
              {!width1200&& <Animator animation={MoveOut(-1000, 0)}><ProjectSamples width1200={width1200} /></Animator>} */}
-            </span>
+            </Box>
           </div>
         </ScrollPage>
-        <ScrollPage page={4}>
-          <Animator animation={batch(Fade(), Sticky())}>
+        <ScrollPage page={4} >
+        <Container
+            style={{
+
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
+          <Animator animation={Zoom( 2, 1 )}>
             <span style={{ fontSize: "40px" }}>CONTACT</span>
             <br />
             <span style={{ fontSize: "30px" }}>
               <Contact/>
             </span>
           </Animator>
+          </Container>
         </ScrollPage>
       </ScrollContainer>
     </Box>

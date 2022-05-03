@@ -5,6 +5,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import MyLocationOutlinedIcon from '@mui/icons-material/MyLocationOutlined';
 import React from 'react'
 import avatar from "../../assets/avatar2.jpg" 
+import { useTheme } from '../../Context/ThemeContext';
 
 
 const contactFont = createTheme({
@@ -58,13 +59,14 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const Contact = () => {
+  const {width1200}= useTheme();
   return (
-    <Box sx={{display: 'flex', gap:3}}>
+    <Box sx={{display: `${!width1200&&"flex"}`, gap:3}} className="contact">
     <ThemeProvider theme={formFont}>
     <Box
     component="form"
     sx={{
-      '& .MuiTextField-root': { m: 1, width: '25ch' },
+      '& .MuiTextField-root': { m: 1, maxWidth: 400 },
        backgroundColor:"#A1C7E0",
        padding:3, borderRadius:3,
         boxShadow:"0 0 3px 5px #0a4383 inset,0 0 6px 5px #ffffff " ,
@@ -81,6 +83,7 @@ const Contact = () => {
         id="outlined-required"
         label="Name"
         placeholder="Enter your name..."
+        fullWidth
       />
       <TextField
       required
@@ -88,6 +91,7 @@ const Contact = () => {
         id="outlined"
         label="Email"
         placeholder="Enter your email address..."
+        fullWidth
       />
 
 <TextField
@@ -96,7 +100,7 @@ const Contact = () => {
           multiline
           maxRows={4}
           helperText="Feel free to ask about everything."
-          
+          fullWidth
         />
     
       <TextField
@@ -105,6 +109,7 @@ const Contact = () => {
           multiline
           rows={4}
           variant="standard"
+          fullWidth
         />
     </div>
     </Box>
