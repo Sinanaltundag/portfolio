@@ -10,26 +10,21 @@ import Page404 from "../helpers/Page404";
 import { AdminRouter } from "./PrivateRouter";
 import SignUp from "../pages/Admin/SignUp";
 import { Box, ThemeProvider } from "@mui/material";
-import { useTheme } from "../Context/ThemeContext";
+import { useCustomTheme } from "../Context/ThemeContext";
 import { BlogProvider } from "../Context/DataContext";
 import Details from "../pages/ClassNotes/ClassNotesComponents/Details";
 
 const Router = () => {
-  const { theme } = useTheme();
+  const { theme, navbarHeight } = useCustomTheme();
 
   //!  background için navbar yüksekliğine göre box yükseklik ayarlama
-  const [navbarHeight, setNavbarHeight] = useState(0);
-  const nav = React.useRef();
-  React.useEffect(() => {
-    setNavbarHeight(nav.current.clientHeight);
-  }, []);
+
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <BlogProvider>
-          <div ref={nav}>
             <Navbar />
-          </div>
           <Box
             backgroundColor="background.paper"
             style={{ minHeight: `calc(100vh - ${navbarHeight}px)` }}

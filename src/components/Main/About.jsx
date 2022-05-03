@@ -1,10 +1,10 @@
 import { Box,  Card,  CardContent, CardMedia, Typography } from '@mui/material'
 import React from 'react'
 import aboutGif from "../../assets/AboutGif.gif"
-import { useTheme } from '../../Context/ThemeContext';
+import { useCustomTheme } from '../../Context/ThemeContext';
 
 const About = () => {
-  const {width1000, width800,width600,} = useTheme();
+  const {width1000, width800,width600,} = useCustomTheme();
   return (
       <Box sx={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center"}} fixed={false}>
     <Box style={{ padding: `${width800?"2rem":"5rem"}`, display: "flex", justifyContent: "center", alignItems: "center"}}>

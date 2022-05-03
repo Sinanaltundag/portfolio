@@ -8,7 +8,7 @@ import reactSvg from "../../assets/svg/react-2.svg";
 import sassSvg from "../../assets/svg/sass-1.svg";
 import { useState } from "react";
 import SkillList from "./mainComponents/SkillList";
-import { useTheme } from "../../Context/ThemeContext";
+import { useCustomTheme } from "../../Context/ThemeContext";
 import { useBlog } from "../../Context/DataContext";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -20,7 +20,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 const Skills = ({ width1200 }) => {
   const [coor, setCoor] = useState([]);
-const {width600}=useTheme();
+const {width600}=useCustomTheme();
 const {skillListFrontend,skillListStyling}=useBlog();
   const handleMove = (e) => {
     setCoor([-e.screenX / 100, -e.screenY / 100]);

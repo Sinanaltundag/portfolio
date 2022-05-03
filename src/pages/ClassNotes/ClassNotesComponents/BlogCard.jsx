@@ -20,10 +20,8 @@ export default function BlogCard({ blog, activeTopic }) {
   if (rating) {
     let rateList = rating.map(item=>Object.values(item))
     averageRating.current = rateList.reduce((a,b) =>+a + +b)/rateList.length;
-    console.log(averageRating)
     
   }
-  console.log(averageRating)
   const [rate, setRate] = useState(averageRating.current);
   const { userInfo } = useSession();
   const { editBlog } = useBlog();

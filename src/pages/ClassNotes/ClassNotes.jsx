@@ -10,9 +10,11 @@ import ReactNotes from './ReactNotes';
 import JavascriptNotes from './JavascriptNotes';
 import StylingNotes from './StylingNotes';
 import { useBlog } from '../../Context/DataContext';
+import { useCustomTheme } from '../../Context/ThemeContext';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+  
   return (
     <div
       role="tabpanel"
@@ -20,6 +22,7 @@ function TabPanel(props) {
       id={`full-width-tabpanel-${index}`}
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
+      
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
@@ -45,12 +48,12 @@ function a11yProps(index) {
 
 export default function ClassNotes() {
   const theme = useTheme();
+  const {navbarHeight}=useCustomTheme();
   const [value, setValue] = React.useState(0);
   const {setActiveTopic} = useBlog()
   
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    console.log(newValue);
     switch (newValue) {
       case 0:
         setActiveTopic("react");
@@ -70,9 +73,9 @@ export default function ClassNotes() {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-
+console.log(navbarHeight);
   return (
-    <Box sx={{ bgcolor: 'background.paper', width: "100%" }}>
+    <Box sx={{ bgcolor: 'background.paper', width: "100%", paddingTop: `${navbarHeight}px`}}>
 
       <AppBar position="static">
         <Tabs

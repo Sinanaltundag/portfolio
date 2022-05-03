@@ -22,7 +22,7 @@ import Skills from "./Skills";
 import ProjectSamples from "./ProjectSamples";
 import Contact from "./Contact";
 import {useBlog} from "../../Context/DataContext"
-import { useTheme } from "../../Context/ThemeContext";
+import { useCustomTheme } from "../../Context/ThemeContext";
 
 const ZoomInScrollOut = batch(StickyIn(), FadeIn(), ZoomIn());
 const FadeUp = batch(Fade(), Move(), Sticky());
@@ -31,7 +31,7 @@ const ZoomUp = batch(Fade(0, 1), Move());
   //! mediaquery added 
   
   const Main = () => {
-  const {width1200} = useTheme();
+  const {width1200} = useCustomTheme();
   useEffect(function updateTitle() { document.title = "Portfolio"; });
 const {reactProjects, javasicriptProjects, htmlCssProjects}= useBlog()
 
