@@ -6,6 +6,8 @@ import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import movieSm from "../../assets/react-movie-sm.jpg"
+import { Box, Button, Modal, styled, Tooltip, tooltipClasses, Typography } from '@mui/material';
+import ProjectModal from './mainComponents/ProjectModal';
 
 //! responsive component creating
 // const RespImageListItem = styled(ImageListItem)(({ theme }) => ({
@@ -24,65 +26,82 @@ import movieSm from "../../assets/react-movie-sm.jpg"
 // }));
 
 
+
+const Styledimg = styled("img")`
+  opacity: 0.7;
+  transition: all 0.5s;
+  &:hover {
+    opacity: 1;
+  }
+ `;
+
+
+const HtmlTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: 'grey.900',
+    color: 'grey.A100',
+    maxWidth: 250,
+    fontSize: theme.typography.pxToRem(12),
+    border: '1px solid #dadde9',
+  },
+}));
+
 export default function ProjectSamples({width1200,reactProjects}) {
+  const [open, setOpen] = React.useState(false);
+  const [projectData, setProjectData] = React.useState([])
+  const handleOpen = (e, item) => {
+    console.log(item);
+    setProjectData(item)
+    setOpen(true);
+  }
 
   return (
     <ImageList sx={{  }}>
+      <ProjectModal open={open} setOpen={setOpen} data={projectData}/>
       <ImageListItem key="Subheader" cols={width1200?2:4} >
         <ListSubheader component="div" sx={{backgroundColor:"primary.dark", color:"white", fontSize:25,  }} >React</ListSubheader>
       </ImageListItem>
       {reactProjects.map((item) => (
-        <ImageListItem key={item.img} sx={{ cursor:"pointer"}}  >
-          <img
-            src={`${item.img}?w=248&fit=crop&auto=format`}
-            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+        <ImageListItem key={item.img} sx={{ cursor:"pointer", width:250, height:150}} onClick={(e) =>handleOpen(e,item)} >
+        
+          <Styledimg
+          // images import from public folder
+            src={process.env.PUBLIC_URL + `${item.img}`}
             alt={item.title}
             loading="lazy"
+            style={{}}
           />
+          
           <ImageListItemBar
             title={item.title}
             subtitle={item.author}
             actionIcon={
+              <HtmlTooltip
+        title={
+          <React.Fragment>
+            <Typography color="inherit">{item.title}</Typography>
+            <em>{"This project aims: "}</em> <b>{item?.aim}</b> <br /> 
+             <i>{"Are you interested?"}</i> <br />
+             <Typography variant="caption">{"You can click on image to see details"} </Typography> 
+          </React.Fragment>
+        }
+      >
               <IconButton
                 sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
                 aria-label={`info about ${item.title}`}
+                
               >
                 <InfoIcon />
               </IconButton>
+              </HtmlTooltip>
             }
           />
+            
         </ImageListItem>
       ))}
     </ImageList>
   );
 }
 
-const itemData = [
-  {
-    img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-    title: 'Breakfast',
-    author: '@bkristastucchio',
-    rows: 2,
-    cols: 2,
-    featured: true,
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-    title: 'Burger',
-    author: '@rollelflex_graphy726',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-    title: 'Camera',
-    author: '@helloimnik',
-  },
-   {
-    img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
-    title: 'Honey',
-    author: '@arwinneil',
-    rows: 2,
-    cols: 2,
-    featured: true,
-  },
-
-];
