@@ -1,5 +1,5 @@
 import { createTheme, useMediaQuery } from "@mui/material";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 const MyThemeContext = createContext();
 
@@ -19,6 +19,8 @@ const width1000 = useMediaQuery('(max-width:1000px)');
 const width800 = useMediaQuery('(max-width:800px)');
 const width600 = useMediaQuery('(max-width:600px)');
 
+const [navbarHeight, setNavbarHeight] = useState(0); 
+
 
   return (
     <MyThemeContext.Provider
@@ -31,6 +33,8 @@ const width600 = useMediaQuery('(max-width:600px)');
         width1000,
         width800,
         width600,
+        navbarHeight, 
+        setNavbarHeight,
       }}
     >
       {children}
@@ -38,7 +42,7 @@ const width600 = useMediaQuery('(max-width:600px)');
   );
 };
 
-export function useTheme() {
+export function useCustomTheme() {
   return useContext(MyThemeContext);
 };
 

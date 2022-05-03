@@ -5,7 +5,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import MyLocationOutlinedIcon from '@mui/icons-material/MyLocationOutlined';
 import React from 'react'
 import avatar from "../../assets/avatar2.jpg" 
-import { useTheme } from '../../Context/ThemeContext';
+import { useCustomTheme } from '../../Context/ThemeContext';
 
 
 const contactFont = createTheme({
@@ -59,7 +59,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const Contact = () => {
-  const {width1200}= useTheme();
+  const {width1200}= useCustomTheme();
   return (
     <Box sx={{display: `${!width1200&&"flex"}`, gap:3}} className="contact">
     <ThemeProvider theme={formFont}>
@@ -70,7 +70,7 @@ const Contact = () => {
        backgroundColor:"#A1C7E0",
        padding:3, borderRadius:3,
         boxShadow:"0 0 3px 5px #0a4383 inset,0 0 6px 5px #ffffff " ,
-        
+        marginBottom:3
     }}
     noValidate
     autoComplete="off"
@@ -115,7 +115,7 @@ const Contact = () => {
     </Box>
     </ThemeProvider>
     <ThemeProvider theme={contactFont}>
-    <Container sx={{backgroundColor:"#A1C7E0", padding:3, borderRadius:3,boxShadow:"0 0 3px 5px #0a4383 inset,0 0 6px 5px #ffffff " ,  }}>
+    <Container sx={{backgroundColor:"#A1C7E0", padding:3, borderRadius:3,boxShadow:"0 0 3px 5px #0a4383 inset,0 0 6px 5px #ffffff " , marginBottom:3 }}>
     <StyledBadge
   overlap="circular"
   anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}

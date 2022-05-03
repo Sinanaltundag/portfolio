@@ -17,7 +17,7 @@ import AvatarImg from "../../assets/avatar.jpg";
 import LogoutDialog from "../../helpers/LogoutDialog";
 import  { MaterialUISwitch } from "./toggle";
 import { ButtonGroup, FormControlLabel} from "@mui/material";
-import { useTheme } from "../../Context/ThemeContext";
+import { useCustomTheme } from "../../Context/ThemeContext";
 
 const pages = ["Main", "Projects", "Class Notes"];
 const settings = ["SignIn", "SignUp"];
@@ -25,7 +25,7 @@ const settings = ["SignIn", "SignUp"];
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { setActiveTheme,activeTheme } = useTheme();
+  const { setActiveTheme,activeTheme } = useCustomTheme();
   const {userInfo}= useSession()
   console.log(userInfo)
 
@@ -48,10 +48,20 @@ const Navbar = () => {
 setting==="LogOut"&& setSignIn(false);
   } */
 
+  const { setNavbarHeight } = useCustomTheme();
+
+  //!  background için navbar yüksekliğine göre box yükseklik ayarlama "fixed olduğundan buraya koyduk"
+  const nav = React.useRef();
+  React.useEffect(() => {
+    setNavbarHeight(nav.current.clientHeight);
+
+  }, []);
+  
 
   return (
     <AppBar position="fixed"  sx={{ color:"text.primary"}} >
-      <Container maxWidth="xl">
+    <div ref={nav}>
+      <Container  maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
             variant="h4"
@@ -185,6 +195,7 @@ setting==="LogOut"&& setSignIn(false);
           </Box>
         </Toolbar>
       </Container>
+    </div>
     </AppBar>
   );
 };
