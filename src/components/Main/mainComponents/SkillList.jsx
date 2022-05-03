@@ -6,9 +6,10 @@ import Avatar from '@mui/material/Avatar';
 
 import Divider from '@mui/material/Divider';
 import {HtmlSvg,JsSvg,ReactSvg} from '../../../assets/svg/SvgIcons'
+import { Box } from '@mui/material';
 
 
-export default function SkillList() {
+export default function SkillList({skillList}) {
   return (
     <List
       sx={{
@@ -18,32 +19,22 @@ export default function SkillList() {
         bgcolor: 'background.paper',
       }}
     >
-      <ListItem >
+     {skillList.map((skill,i)=>(
+
+     <Box key={i}>
+       <ListItem >
         <ListItemAvatar>
-          <Avatar sx={{ bgcolor: 'secondary.main'}}>
-            <ReactSvg />
+          <Avatar sx={{ bgcolor: 'text.primary', padding:"0.5rem", marginRight:"0.5rem" }} alt={skill.title} >
+           { skill.svg}
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="REACT" secondary="Hooks, Styled Components, Material UI, Custom Hooks..." />
+        <ListItemText primary={skill.title} secondary={skill.subjects.join(', ')} />
       </ListItem>
       <Divider variant="inset" component="li" />
-      <ListItem>
-        <ListItemAvatar>
-          <Avatar>
-            <JsSvg width="100%" height="100%"/>
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="JavaScript" secondary="DOM, Events, Loop Methods, Promises, Clean Code..." />
-      </ListItem>
-      <Divider variant="inset" component="li" />
-      <ListItem>
-        <ListItemAvatar>
-          <Avatar>
-            <HtmlSvg />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText primary="HTML5" secondary="Semantic Markup, Forms, Tables, Web Storages..." />
-      </ListItem>
+      </Box>
+     )) 
+      }
+      
     </List>
   );
 }
