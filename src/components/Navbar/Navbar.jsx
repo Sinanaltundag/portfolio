@@ -19,7 +19,7 @@ import  { MaterialUISwitch } from "./toggle";
 import { ButtonGroup, FormControlLabel} from "@mui/material";
 import { useCustomTheme } from "../../Context/ThemeContext";
 
-const pages = ["Main", "Projects", "Class Notes"];
+const pages = ["Main", "Class Notes"];
 const settings = ["SignIn", "SignUp"];
 
 const Navbar = () => {

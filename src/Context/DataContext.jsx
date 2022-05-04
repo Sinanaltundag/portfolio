@@ -66,6 +66,7 @@ export function BlogProvider({ children }) {
       details: [
         "Project aims to create a Movie App.",
         "Fetch api from TMDB",
+        "Context for auth",
         "List data on landing page",
         "Show filtered data according to search terms",
         "Login function with firebase (email / with google)",
@@ -74,7 +75,7 @@ export function BlogProvider({ children }) {
         "BootStrap 5",
       ],
       url: "https://firebase-movie.herokuapp.com/",
-      aim: "Private Routing, Bootstrap, Firebase auth, Context, pagination",
+      aim: "Private Routing, Bootstrap, Firebase auth, Context, Pagination",
     },
     {
       img: "./images/react-myblog-sm.jpg",

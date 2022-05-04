@@ -40,11 +40,12 @@ const HtmlTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: 'grey.900',
-    color: 'grey.A100',
+    backgroundColor: "rgb(42, 0, 148)",
+    color: 'white',
     maxWidth: 250,
     fontSize: theme.typography.pxToRem(12),
     border: '1px solid #dadde9',
+    borderRadius: '10px',
   },
 }));
 
@@ -81,12 +82,13 @@ export default function ProjectSamples({width1200,projects}) {
               <HtmlTooltip
         title={
           <React.Fragment>
-            <Typography color="inherit">{item.title}</Typography>
+            <Typography >{item.title}</Typography>
             <em>{"This project aims: "}</em> <b>{item?.aim}</b> <br /> 
              <i>{"Are you interested?"}</i> <br />
              <Typography variant="caption">{"You can click on image to see details"} </Typography> 
           </React.Fragment>
         }
+        
       >
               <IconButton
                 sx={{ color: 'rgba(255, 255, 255, 0.54)' }}

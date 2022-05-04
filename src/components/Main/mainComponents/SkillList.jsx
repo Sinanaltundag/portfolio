@@ -5,7 +5,6 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 
 import Divider from '@mui/material/Divider';
-import {HtmlSvg,JsSvg,ReactSvg} from '../../../assets/svg/SvgIcons'
 import { Box } from '@mui/material';
 
 
@@ -13,8 +12,6 @@ export default function SkillList({skillList}) {
   return (
     <List
       sx={{
-        // width: '100%',
-        
         minWidth: 500,
         bgcolor: 'background.paper',
       }}

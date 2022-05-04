@@ -17,7 +17,7 @@ import Details from "../pages/ClassNotes/ClassNotesComponents/Details";
 const Router = () => {
   const { theme, navbarHeight } = useCustomTheme();
 
-  //!  background için navbar yüksekliğine göre box yükseklik ayarlama
+ 
 
 
   return (
@@ -27,12 +27,11 @@ const Router = () => {
             <Navbar />
           <Box
             backgroundColor="background.paper"
-            style={{ minHeight: `calc(100vh - ${navbarHeight}px)` }}
+            style={{ minHeight: "100vh" }}
           >
             <Routes>
               <Route path="/" element={<Main />} />
               <Route path="/Main" element={<Main />} />
-              <Route path="/Projects" element={<Projects />} />
               {/*! signin sayfasına login yapan girmemeli */}
               <Route path="/SignIn" element={<SignIn />} />
               <Route path="/SignUp" element={<SignUp />} />

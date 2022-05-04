@@ -74,7 +74,7 @@ export default function BlogCard({ blog, activeTopic }) {
   };
 
   return (
-    <Card raised sx={{ maxWidth: 345, margin: "auto" }}>
+    <Card raised sx={{ maxWidth: 345, margin: "auto", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
       {/* <Box onClick={handleClick} sx={{ cursor: "pointer" }}>
         <CardMedia
           component="img"
