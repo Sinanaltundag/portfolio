@@ -1,12 +1,13 @@
-import { Avatar, Badge, Container, createTheme, styled, TextField, ThemeProvider, Typography } from '@mui/material'
+import { Avatar, Badge, Button, Container, createTheme, styled, TextField, ThemeProvider, Typography } from '@mui/material'
 import { Box} from '@mui/system'
 import ContactMailIcon from '@mui/icons-material/ContactMail';
 import PhoneIcon from '@mui/icons-material/Phone';
 import MyLocationOutlinedIcon from '@mui/icons-material/MyLocationOutlined';
-import React from 'react'
+import React, { useRef } from 'react'
 import avatar from "../../assets/avatar2.jpg" 
 import { useCustomTheme } from '../../Context/ThemeContext';
-
+import emailjs from '@emailjs/browser';
+import { toast } from 'react-toastify';
 
 const contactFont = createTheme({
   typography: {
@@ -58,13 +59,30 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
+
+
 const Contact = () => {
   const {width1200}= useCustomTheme();
+  const form = useRef();
+  
+    const sendEmail = (e) => {
+      e.preventDefault();
+  
+      emailjs.sendForm(process.env.REACT_APP_emailServiceId, process.env.REACT_APP_emailTemplateId, form.current, process.env.REACT_APP_emailPublicKey)
+        .then((result) => {
+            console.log(result.text);
+            form.current.reset()
+            toast("Your message has been sent successfully" )
+        }, (error) => {
+            console.log(error.text);
+        });
+    };
   return (
     <Box sx={{display: `${!width1200&&"flex"}`, gap:3}} className="contact">
     <ThemeProvider theme={formFont}>
     <Box
     component="form"
+    ref={form}
     sx={{
       '& .MuiTextField-root': { m: 1, maxWidth: 400 },
        backgroundColor:"#A1C7E0",
@@ -74,6 +92,7 @@ const Contact = () => {
     }}
     noValidate
     autoComplete="off"
+    onSubmit={sendEmail}
   >
     <div>
       <TextField
@@ -88,6 +107,7 @@ const Contact = () => {
       <TextField
       required
         type="email"
+        name="email"
         id="outlined"
         label="Email"
         placeholder="Enter your email address..."
@@ -97,6 +117,7 @@ const Contact = () => {
 <TextField
           id="flex-textarea"
           label="Subject"
+          name="subject"
           multiline
           maxRows={4}
           helperText="Feel free to ask about everything."
@@ -106,11 +127,20 @@ const Contact = () => {
       <TextField
           id="standard-multiline-static"
           label="Your Message"
+          name="message"
           multiline
           rows={4}
           variant="standard"
           fullWidth
         />
+        <Button
+        fullWidth
+        type="submit"
+        >
+        <Typography variant="h5" >
+          Send
+          </Typography>
+        </Button>
     </div>
     </Box>
     </ThemeProvider>
