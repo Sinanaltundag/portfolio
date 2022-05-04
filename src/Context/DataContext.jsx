@@ -38,10 +38,15 @@ export function BlogProvider({ children }) {
   }
 
   function editBlog(blog, dbName) {
-    const updates = {};
-    updates[dbName + "/" + blog.id] = blog;
-    toast("Record Updated");
-    return update(ref(firebaseDB), updates);
+    try {
+      const updates = {};
+      updates[dbName + "/" + blog.id] = blog;
+      toast("Record Updated");
+      return update(ref(firebaseDB), updates);
+      
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   /*   useEffect(() => {

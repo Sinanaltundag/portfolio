@@ -1,6 +1,5 @@
 import Container from "@mui/material/Container";
 import {  Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
-import {  EditBlog } from "../../utils/dataFunctions";
 import { useLocation } from "react-router-dom";
 import {  useEffect, useRef, useState } from "react";
 import {  useSession } from "../../Context/SessionContext";
@@ -9,7 +8,7 @@ import { useCustomTheme } from "../../Context/ThemeContext";
 
 const AdminPanel = () => {
   const {userInfo} = useSession()
-  const {addBlog} = useBlog()
+  const {addBlog, editBlog} = useBlog()
   const [mainTopic, setMainTopic] = useState([]);
   const d = new Date();
   const location = useLocation();
@@ -26,11 +25,12 @@ const AdminPanel = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const { title, detail, img, maintopic, subtopic } = {
+    const { title, detail, explanation, img, maintopic, subtopic } = {
       maintopic:data.get("mainTopic"),
       subtopic:data.get("subTopic"),
       title: data.get("title"),
       detail: data.get("detail"),
+      explanation: data.get("explanation"),
       img: data.get("img"),
     };
 
@@ -40,13 +40,15 @@ const AdminPanel = () => {
       subtopic,
       title,
       detail,
+      explanation,
       img,
       author: userInfo?.email,
       date: d.toDateString(),
       
     };
 console.log(newBlog);
-    blog ? EditBlog({ ...newBlog, id: blog.id }) : addBlog(newBlog, maintopic);
+    blog ? editBlog({ ...newBlog, id: blog.id }, maintopic) : addBlog(newBlog, maintopic);
+    // editBlog({ ...newBlog, id: blog.id })
     // navigate("/");
   };
 
@@ -130,6 +132,16 @@ useEffect(() => {
             id="img"
             autoComplete="img"
             defaultValue={blog?.img}
+          />
+          <TextField
+            id="explanation"
+            label="Explanation"
+            fullWidth
+            required
+            multiline
+            rows={8}
+            name="explanation"
+            defaultValue={blog?.explanation}
           />
           <TextField
             id="detail"

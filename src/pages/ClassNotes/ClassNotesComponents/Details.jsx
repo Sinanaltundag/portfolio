@@ -4,7 +4,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { AccountCircle } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Button, ButtonGroup, Container, Paper } from "@mui/material";
+import { Button, ButtonGroup, Container, Divider, Paper } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 // import { useSelector } from "react-redux";
 // import { DeleteBlog } from "../utils/dataFunctions";
@@ -17,7 +17,7 @@ export default function Details() {
   const navigate = useNavigate();
   const location = useLocation();
   const blog = location.state.blog;
-  const { id, title, date, img, comments, detail, author } = blog;
+  const { id, title, date, img, comments, detail, explanation, author } = blog;
 
   const { userInfo } = useSession();
   const { deleteOneBlog, activeTopic } = useBlog();
@@ -53,6 +53,10 @@ export default function Details() {
             {date}
           </Typography>
           <Paper  elevation={2}  sx={{padding:3}}>
+          {explanation&&<Typography variant="h6" color="text.secondary" gutterBottom>
+            {explanation}
+          </Typography>}
+          <Divider/>
           {/* kodu alındığı hizada yazdırma */}
           <Typography variant="h6" color="secondary" sx={{whiteSpace: "pre"}}>
             {detail}
