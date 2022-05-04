@@ -6,11 +6,10 @@ import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import ReactNotes from './ReactNotes';
-import JavascriptNotes from './JavascriptNotes';
-import StylingNotes from './StylingNotes';
+
 import { useBlog } from '../../Context/DataContext';
 import { useCustomTheme } from '../../Context/ThemeContext';
+import Notes from './Notes';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -98,13 +97,13 @@ console.log(navbarHeight);
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <ReactNotes/>
+          <Notes/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <JavascriptNotes/>
+          <Notes/>
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          <StylingNotes/>
+          <Notes/>
         </TabPanel>
       </SwipeableViews>
       

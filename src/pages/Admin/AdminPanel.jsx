@@ -2,9 +2,10 @@ import Container from "@mui/material/Container";
 import {  Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import {  EditBlog } from "../../utils/dataFunctions";
 import { useLocation } from "react-router-dom";
-import {  useState } from "react";
+import {  useEffect, useRef, useState } from "react";
 import {  useSession } from "../../Context/SessionContext";
 import { useBlog } from "../../Context/DataContext";
+import { useCustomTheme } from "../../Context/ThemeContext";
 
 const AdminPanel = () => {
   const {userInfo} = useSession()
@@ -13,6 +14,7 @@ const AdminPanel = () => {
   const d = new Date();
   const location = useLocation();
   const blog = location.state?.blog;
+  const {navbarHeight}=useCustomTheme();
 
   const topics ={
     react : ["hooks", "components", "libraries"],
@@ -34,6 +36,7 @@ const AdminPanel = () => {
 
     const newBlog = {
       ...blog,
+      maintopic,
       subtopic,
       title,
       detail,
@@ -50,6 +53,12 @@ console.log(newBlog);
   const handleChange = (event) => {
     setMainTopic(topics[event.target.value]);
   };
+console.log(blog);
+console.log(navbarHeight);
+//!blog update için subtopic optionsları belirlemeyi yapma. state değiştirme onchange event ı tetikliyor.
+useEffect(() => {
+ blog&& setMainTopic(topics[blog.maintopic])
+}, [blog])
 
 
   return (
@@ -57,15 +66,15 @@ console.log(newBlog);
         component="main"
         maxWidth="sm"
         sx={{
-          backgroundColor: "white",
+          backgroundColor: "background.paper",
           borderRadius: "1rem",
-          boxShadow: "10px 10px 5px 1px black",
+          boxShadow: "11px 11px 15px 2px black",
           padding: " 10px 0",
-          marginTop: "4rem",
+          marginTop: `${navbarHeight}px`,
         }}
       >
        
-        <Typography component="h1" variant="h5" width="100%">
+        <Typography component="h1" variant="h5" width="100%" color="text.primary">
           {blog ? "Update Blog" : "New Blog"}
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -77,8 +86,9 @@ console.log(newBlog);
           id="demo-simple-select"
           label="Main Topic"
           name="mainTopic"
+       
           // value={mainTopic}
-          defaultValue=""
+          defaultValue={blog?.maintopic}
           onChange={handleChange}
         >
           <MenuItem value={"react"}>React</MenuItem>
@@ -88,12 +98,12 @@ console.log(newBlog);
         </Select>
       </FormControl>
         <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label2">Sub Topic</InputLabel>
+        <InputLabel id="subTopic">Sub Topic</InputLabel>
         <Select
-          labelId="demo-simple-select-label2"
-          id="demo-simple-select2"
+          labelId="subTopic"
+          id="subTopic"
           label="Sub Topic"
-          defaultValue=""
+          defaultValue={blog?.subtopic}
           name="subTopic"
         >
         {mainTopic?.map(subTopic=><MenuItem key={subTopic} value={subTopic}>{subTopic}</MenuItem>)}
