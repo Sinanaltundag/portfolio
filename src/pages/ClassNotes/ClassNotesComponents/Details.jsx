@@ -27,7 +27,7 @@ export default function Details() {
     navigate("/Class%20Notes");
   };
   const handleUpdate = () => {
-    navigate("/new-blog", { state: { blog } });
+    navigate("/AdminPanel", { state: { blog } });
   };
   return (
     <Container>
