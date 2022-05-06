@@ -54,7 +54,7 @@ setting==="LogOut"&& setSignIn(false);
   React.useEffect(() => {
     setNavbarHeight(nav.current.clientHeight);
 
-  }, []);
+  }, [setNavbarHeight]);
   
 
   return (
@@ -149,10 +149,10 @@ setting==="LogOut"&& setSignIn(false);
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {/* avatar get from user if signin */}
+                {/* avatar get from user if signin else first letter of email */}
                 <Avatar
-                  alt={userInfo ? userInfo.email?.toUpperCase():"Guest"}
-                  src={userInfo?.photoURL ? AvatarImg: null}
+                  alt={userInfo && userInfo.email?.toUpperCase()}
+                  src={userInfo?.photoURL ? AvatarImg: "null"}
                 />
               </IconButton>
             </Tooltip>

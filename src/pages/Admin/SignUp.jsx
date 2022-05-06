@@ -13,12 +13,15 @@ import { useNavigate, Link } from "react-router-dom";
 import AvatarImg from "../../assets/avatar.jpg";
 
 import { toast } from "react-toastify";
+import ResetPassword from "./AdminComponents/ResetPassword";
+import { IconButton } from "@mui/material";
+import { useCustomTheme } from "../../Context/ThemeContext";
 
-// const theme = createTheme();
 
 export default function SignUp() {
   const { userInfo, createUser, loginWithGoogle, logout } = useSession();
   const navigate = useNavigate();
+  const { navbarHeight } = useCustomTheme();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,7 +34,6 @@ export default function SignUp() {
       confirmPassword: data.get("password2"),
       photoURL: data.get("photoURL"),
     };
-    console.log(user);
     if (user.password === user.confirmPassword && user.password.length > 5) {
       createUser(user.email, user.password, user.displayName);
     } else {
@@ -40,7 +42,6 @@ export default function SignUp() {
       );
     }
   };
-
 
   //! kullanıcı adı ve fotoğrafını kayıt esnasında ekleme yapılamadı
   // useEffect(() => {
@@ -57,7 +58,7 @@ export default function SignUp() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" sx={{paddingTop: `${navbarHeight}px` }}>
       <CssBaseline />
       {
         //kullanıcı girişi yapıldıysa logout sayfası
@@ -195,14 +196,14 @@ export default function SignUp() {
                 </Typography>
               </Button>
               <Grid container>
-                <Grid item xs>
-                  <Link to="/" variant="body2">
-                    Forgot password?
-                  </Link>
+                <Grid item sm>
+                  <ResetPassword />
                 </Grid>
-                <Grid item>
-                  <Link to="/SignIn" variant="body1">
-                    {"Have an account? Sign In"}
+                <Grid item sm>
+                  <Link to="/SignIn" variant="body2">
+                    <IconButton size="small" aria-label="like">
+                      Have an account? Sign In
+                    </IconButton>
                   </Link>
                 </Grid>
               </Grid>

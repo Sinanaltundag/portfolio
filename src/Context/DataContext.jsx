@@ -1,4 +1,4 @@
-import { onValue, push, ref, remove, set, update } from "firebase/database";
+import {  push, ref, remove, set, update } from "firebase/database";
 import { useContext, useState, createContext } from "react";
 import { toast } from "react-toastify";
 import { firebaseDB } from "../helpers/firebaseConnect";
@@ -27,14 +27,6 @@ export function BlogProvider({ children }) {
     set(newBlogRef, newBlog);
   }
 
-
- 
-
-  function getOneBlog(id) {
-    const result = currentBlogs?.filter((item) => item.id === id);
-    return result;
-  }
-
   function deleteOneBlog(id, dbName) {
     remove(ref(firebaseDB, dbName + "/" + id));
     toast("Record Deleted");
@@ -46,26 +38,11 @@ export function BlogProvider({ children }) {
       updates[dbName + "/" + blog.id] = blog;
       toast("Record Updated");
       return update(ref(firebaseDB), updates);
-      
     } catch (error) {
-      console.log(error);
+      toast(error);
     }
   }
 
-  /*   useEffect(() => {
-    setIsLoading(true);
-    
-    const blogRef = ref(firebaseDB, "blogdata");
-    onValue(blogRef, (snapshot) => {
-      const data = snapshot.val();
-      const blogs = [];
-      for (let id in data) {
-        blogs.push({ id, ...data[id] });
-      }
-      setCurrentBlogs(blogs);
-      setIsLoading(false);
-    });
-  }, []); */
   const reactProjects = [
     {
       img: "./images/react-movie-sm.jpg",
@@ -130,7 +107,7 @@ export function BlogProvider({ children }) {
       aim: "Responsive, Router, Template",
     },
   ];
-  const javasicriptProjects = [
+  const javascriptProjects = [
     {
       img: "./images/js-School-form.jpg",
       title: "School Registration Form",
@@ -159,7 +136,7 @@ export function BlogProvider({ children }) {
         "Bootstrap 5",
         "Improved Css",
         "Reusable elements",
-           ],
+      ],
       url: "https://sinanaltundag.github.io/smallprojects/image-search/",
       aim: "Axios, Api details, Bootstrap, Css",
     },
@@ -197,11 +174,7 @@ export function BlogProvider({ children }) {
       img: "./images/css-flexmedia.jpg",
       title: "Responsive Website Template",
       author: "@Sinan",
-      details: [
-        "Project aims to create a responsive template.",
-        "Css",
-     
-      ],
+      details: ["Project aims to create a responsive template.", "Css"],
       url: "https://sinanaltundag.github.io/smallprojects/flexmedia/",
       aim: "Responsive, Css",
     },
@@ -209,10 +182,7 @@ export function BlogProvider({ children }) {
       img: "./images/css-grid-page.jpg",
       title: "Grid Template",
       author: "@Sinan",
-      details: [
-        "Complicated Grid design",
-  
-      ],
+      details: ["Complicated Grid design"],
       url: "https://sinanaltundag.github.io/smallprojects/grid-page/",
       aim: "Grid design",
     },
@@ -220,12 +190,7 @@ export function BlogProvider({ children }) {
       img: "./images/css-team-members.jpg",
       title: "Team Members Page",
       author: "@Sinan",
-      details: [
-        "Improved Css",
-        "Dark Mode",
-        "Responsive design",
-
-      ],
+      details: ["Improved Css", "Dark Mode", "Responsive design"],
       url: "https://sinanaltundag.github.io/smallprojects/team-members/",
       aim: "Css, Dark mode, Responsive",
     },
@@ -236,14 +201,13 @@ export function BlogProvider({ children }) {
       details: [
         "Portfolio styled with Sass",
         "Responsive design",
-        "Improved Css"
-       
+        "Improved Css",
       ],
       url: "https://sinanaltundag.github.io/smallprojects/sass-projects/Sass-Portfolio/",
       aim: "Responsive, Portfolio, Sass & Scss",
     },
   ];
-//! dynamic svg control
+  //! dynamic svg control
   const skillListFrontend = [
     {
       title: "REACT",
@@ -274,7 +238,12 @@ export function BlogProvider({ children }) {
     },
     {
       title: "Material UI",
-      subjects: ["Custom Components", "Themes", "Styled Components", "Responsive"],
+      subjects: [
+        "Custom Components",
+        "Themes",
+        "Styled Components",
+        "Responsive",
+      ],
       svg: <MuiSvg />,
     },
   ];
@@ -289,10 +258,9 @@ export function BlogProvider({ children }) {
     setActiveTopic,
     reactProjects,
     htmlCssProjects,
-    javasicriptProjects,
+    javascriptProjects,
     skillListStyling,
     skillListFrontend,
-
   };
 
   return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;

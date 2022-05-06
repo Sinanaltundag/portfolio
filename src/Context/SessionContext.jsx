@@ -1,5 +1,11 @@
-import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
-import  { useContext, useState, useEffect, createContext } from "react";
+import {
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+import { useContext, useState, useEffect, createContext } from "react";
 import { toast } from "react-toastify";
 import { auth, googleProvider } from "../helpers/firebaseConnect";
 
@@ -20,15 +26,14 @@ export function SessionProvider({ children }) {
   async function createUser(email, password, displayName) {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(auth.currentUser, {
+      //! get user name , photo when create user (not working) study
+      /*   await updateProfile(auth.currentUser, {
         displayName: displayName,
         photoURL: "",
-      });
-      
+      }); */
     } catch (err) {
       alert(err.message);
     }
-    // return signInWithEmailAndPassword(auth, email, password);
   }
 
   function logout() {
@@ -37,57 +42,45 @@ export function SessionProvider({ children }) {
 
   function loginWithGoogle() {
     googleProvider.setCustomParameters({ prompt: "select_account" });
-  signInWithPopup(auth, googleProvider)
-    .then((result) => {})
-    .catch((error) => {
-      toast(`Incorrect password or invalid credentials: ${error.message}`);
-    });
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {})
+      .catch((error) => {
+        toast(`Incorrect password or invalid credentials: ${error.message}`);
+      });
   }
 
   function resetPassword(email) {
     sendPasswordResetEmail(auth, email)
-    .then(() => {
-      toast("An email has been sent for reset your password!");
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      toast(errorCode + errorMessage);
-    });
+      .then(() => {
+        toast("An email has been sent for reset your password!");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        toast(errorCode + errorMessage);
+      });
   }
-
+//! eklenecek
   function updateEmail(email) {
     return userInfo.updateEmail(email);
   }
 
-  function updatePassword(password) {
-    return userInfo.updatePassword(password);
-  }
 
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((user) => {
-  //     setUserInfo(user);
-  //     setLoading(false);
-  //   });
-
-  //   return unsubscribe;
-  // }, []);
-
+//! user auth control
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-     
-        const userSum = user? {
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-          uid: user.uid,
-        }:""
-        setUserInfo(userSum)
-        setLoading(false)
-       
-      
+      const userSum = user
+        ? {
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+            uid: user.uid,
+          }
+        : "";
+      setUserInfo(userSum);
+      setLoading(false);
     });
-    return  unsubscribe; //! clean-up function
+    return unsubscribe; //! clean-up function
   }, []);
 
   const value = {
@@ -96,7 +89,6 @@ export function SessionProvider({ children }) {
     login,
     logout,
     resetPassword,
-    updatePassword,
     updateEmail,
     loginWithGoogle,
     setUserInfo,
@@ -109,38 +101,3 @@ export function SessionProvider({ children }) {
   );
 }
 
-
-
-
-
-/* 
-import React, { useContext,  useState } from "react";
-
-
-const SessionContext = React.createContext();
-
-const SessionProvider = ({ children }) => {
-  //!sign in kontrolü
-
-const [userInfo, setUserInfo] = useState([])
-
-
-  return (
-    <SessionContext.Provider
-      value={{
-        userInfo,
-        setUserInfo,
-      }}
-    >
-      {children}
-    </SessionContext.Provider>
-  );
-};
-
-
-
-export const useSession = () => {
-  return useContext(SessionContext);
-};
-
-export { SessionContext, SessionProvider }; */
