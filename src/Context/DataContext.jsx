@@ -1,4 +1,4 @@
-import { push, ref, remove, set, update } from "firebase/database";
+import { onValue, push, ref, remove, set, update } from "firebase/database";
 import { useContext, useState, createContext } from "react";
 import { toast } from "react-toastify";
 import { firebaseDB } from "../helpers/firebaseConnect";
@@ -26,6 +26,9 @@ export function BlogProvider({ children }) {
     const newBlogRef = push(blogRef);
     set(newBlogRef, newBlog);
   }
+
+
+ 
 
   function getOneBlog(id) {
     const result = currentBlogs?.filter((item) => item.id === id);
@@ -271,7 +274,7 @@ export function BlogProvider({ children }) {
     },
     {
       title: "Material UI",
-      subjects: ["Components", "Custom Components", "Themes", "Responsive"],
+      subjects: ["Custom Components", "Themes", "Styled Components", "Responsive"],
       svg: <MuiSvg />,
     },
   ];
@@ -279,7 +282,6 @@ export function BlogProvider({ children }) {
   const value = {
     addBlog,
     currentBlogs,
-    getOneBlog,
     deleteOneBlog,
     editBlog,
     setCurrentBlogs,

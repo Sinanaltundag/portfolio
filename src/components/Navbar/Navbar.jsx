@@ -27,7 +27,6 @@ const Navbar = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { setActiveTheme,activeTheme } = useCustomTheme();
   const {userInfo}= useSession()
-  console.log(userInfo)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
