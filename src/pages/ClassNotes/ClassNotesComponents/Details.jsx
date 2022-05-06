@@ -5,22 +5,37 @@ import Typography from "@mui/material/Typography";
 import { AccountCircle } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Button, ButtonGroup, Container, Divider, Paper } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
-// import { useSelector } from "react-redux";
-// import { DeleteBlog } from "../utils/dataFunctions";
-// import Comments from "../components/Comments";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSession } from "../../../Context/SessionContext";
 import { useBlog } from "../../../Context/DataContext";
 import Comments from "./Comments";
+import { useEffect, useState } from "react";
+import { firebaseDB } from "../../../helpers/firebaseConnect";
+import { onValue, ref } from "firebase/database";
+
 
 export default function Details() {
   const navigate = useNavigate();
   const location = useLocation();
-  const blog = location.state.blog;
-  const { id, title, date, img, comments, detail, explanation, author } = blog;
-
+  let {topic,blogid} = useParams()
   const { userInfo } = useSession();
   const { deleteOneBlog, activeTopic } = useBlog();
+  const [one, setOne] = useState()
+
+  console.log(topic,blogid);
+  
+  const blog = (!blogid)? location.state.blog:one
+  const { id, title, date, img, comments, detail, explanation, author } = blog ? blog:"";
+
+  useEffect(() => {
+    const blogRef = ref(firebaseDB, topic + '/' + blogid);
+    onValue(blogRef, (snapshot) => {
+      const data = snapshot.val();
+      setOne(data);
+      console.log(data);
+    });
+  }, [blogid,topic])
+  console.log(one);
 
   const handleDelete = () => {
     deleteOneBlog(id, activeTopic);
@@ -67,7 +82,7 @@ export default function Details() {
             <AccountCircle sx={{ marginRight: 1 }} variant="" />{" "}
             <span>{author}</span>
             <span color="primary" style={{ float: "right", fontSize: 16 }}>
-              <FavoriteIcon color="secondary" /> {blog.like?.length}
+              <FavoriteIcon color="secondary" /> {blog?.like?.length}
             </span>
           </Typography>
         </CardContent>
