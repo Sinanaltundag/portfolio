@@ -25,7 +25,7 @@ import ProjectModal from "./mainComponents/ProjectModal";
 // }));
 
 const Styledimg = styled("img")`
-  opacity: 0.7;
+  opacity: 0.8;
   transition: all 0.5s;
   &:hover {
     opacity: 1;

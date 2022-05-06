@@ -44,6 +44,7 @@ const About = () => {
                 display: "flex",
                 justifyContent: "center",
                 filter: "hue-rotate(300deg)",
+                borderRadius: 20,
               }}
               component="img"
               image={aboutGif}
