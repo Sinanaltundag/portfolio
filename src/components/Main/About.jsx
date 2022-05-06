@@ -8,8 +8,8 @@ const About = () => {
   return (
       <Box sx={{ width: "100vw", height: "100vh", display: "flex", justifyContent: "center"}} fixed={false}>
     <Box style={{ padding: `${width800?"2rem":"5rem"}`, display: "flex", justifyContent: "center", alignItems: "center"}}>
-   <Card sx={{ display: `${!width1000&&"flex"}`,borderRadius: "10px 100px / 120px", boxShadow: "0 0 5px 3px #1565C0", backgroundColor: "black", color:"primary.light", padding: "10px"}}>
-      {!width800&&<CardMedia sx={{width:"auto", height:"370px", objectFit:"cover", display: "flex", justifyContent: "center", filter:"hue-rotate(110deg)"}}
+   <Box sx={{ display: `${!width1000&&"flex"}`,borderRadius: "10px 100px / 120px", boxShadow: "0 0 5px 3px #BF9663", backgroundColor: "#000000", color:"primary.light", padding: "10px"}}>
+      {!width800&&<CardMedia sx={{width:"auto", height:"370px", objectFit:"cover", display: "flex", justifyContent: "center", filter:"hue-rotate(300deg)"}}
         component="img"
         
         image={aboutGif}
@@ -25,7 +25,7 @@ const About = () => {
         </Typography>
       </CardContent>
     </Box>
-    </Card>
+    </Box>
 
     </Box>
     </Box>

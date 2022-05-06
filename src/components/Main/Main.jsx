@@ -37,7 +37,7 @@ const {reactProjects, javasicriptProjects, htmlCssProjects}= useBlog()
 
 
   return (
-    <Box sx={{ backgroundColor: "grey.600", color: "text.primary" }}>
+    <Box sx={{ backgroundColor: "background.main", color: "text.primary" }}>
       <ScrollContainer snap="proximity">
         <ScrollPage page={0}>
           <Animator animation={batch(Fade(), Sticky(), MoveOut(0, -200))}>

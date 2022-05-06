@@ -27,7 +27,8 @@ const formFont = createTheme({
       'Girassol',
       'Roboto'
        ].join(','),
-  },
+      },
+      
 });
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -85,9 +86,9 @@ const Contact = () => {
     ref={form}
     sx={{
       '& .MuiTextField-root': { m: 1, maxWidth: 400 },
-       backgroundColor:"#A1C7E0",
+       backgroundColor:"#A6A6A6",
        padding:3, borderRadius:3,
-        boxShadow:"0 0 3px 5px #0a4383 inset,0 0 6px 5px #ffffff " ,
+        boxShadow:"0 0 3px 5px #BF9663 inset,0 0 6px 5px #ffffff " ,
         marginBottom:3
     }}
     noValidate
@@ -136,6 +137,7 @@ const Contact = () => {
         <Button
         fullWidth
         type="submit"
+        color="primary"
         >
         <Typography variant="h5" >
           Send
@@ -145,7 +147,7 @@ const Contact = () => {
     </Box>
     </ThemeProvider>
     <ThemeProvider theme={contactFont}>
-    <Container sx={{backgroundColor:"#A1C7E0", padding:3, borderRadius:3,boxShadow:"0 0 3px 5px #0a4383 inset,0 0 6px 5px #ffffff " , marginBottom:3 }}>
+    <Container sx={{backgroundColor:"", padding:3, borderRadius:3,boxShadow:"0 0 3px 5px #BF9663 inset,0 0 6px 5px #ffffff " , marginBottom:3 }}>
     <StyledBadge
   overlap="circular"
   anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
