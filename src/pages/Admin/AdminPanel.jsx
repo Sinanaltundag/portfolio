@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSession } from "../../Context/SessionContext";
 import { useBlog } from "../../Context/DataContext";
 import { useCustomTheme } from "../../Context/ThemeContext";
@@ -23,12 +23,12 @@ const AdminPanel = () => {
   const location = useLocation();
   const blog = location.state?.blog;
   const { navbarHeight } = useCustomTheme();
-
-  const topics = {
+// usememo with object
+  const topics = useMemo(() =>{ return{
     react: ["hooks", "components", "libraries"],
     javascript: ["functions", "short-methods", "libraries"],
     styling: ["css", "sass", "frameworks"],
-  };
+  }},[]) ;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,7 +67,7 @@ const AdminPanel = () => {
   //!blog update için subtopic optionsları belirlemeyi yapma. state değiştirme onchange event ı tetikliyor.
   useEffect(() => {
     blog && setMainTopic(topics[blog.maintopic]);
-  }, [blog]);
+  }, [blog, topics]);
 
   return (
     <Container
