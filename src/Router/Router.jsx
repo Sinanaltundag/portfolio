@@ -5,7 +5,6 @@ import SignIn from "../pages/Admin/SignIn";
 import ClassNotes from "../pages/ClassNotes/ClassNotes";
 import Main from "../components/Main/Main";
 import Navbar from "../components/Navbar/Navbar";
-import Projects from "../pages/Projects/Projects";
 import Page404 from "../helpers/Page404";
 import { AdminRouter } from "./PrivateRouter";
 import SignUp from "../pages/Admin/SignUp";
@@ -15,7 +14,7 @@ import { BlogProvider } from "../Context/DataContext";
 import Details from "../pages/ClassNotes/ClassNotesComponents/Details";
 
 const Router = () => {
-  const { theme, navbarHeight } = useCustomTheme();
+  const { theme } = useCustomTheme();
 
  
 
@@ -36,7 +35,10 @@ const Router = () => {
               <Route path="/SignIn" element={<SignIn />} />
               <Route path="/SignUp" element={<SignUp />} />
 
-              <Route path="details" element={<Details />} />
+                {/* <Route path="/details/:topic/:blogid" element={<Details/>} /> */}
+              <Route path="details" element={<Details />} >
+                <Route path=":topic/:blogid" element={<Details/>} />
+              </Route>
               <Route path="/Class%20Notes" element={<ClassNotes />} />
               <Route path="/AdminPanel" element={<AdminRouter />}>
                 <Route path="" element={<AdminPanel />} />
