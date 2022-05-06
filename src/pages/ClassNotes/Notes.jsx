@@ -5,59 +5,56 @@ import { useBlog } from "../../Context/DataContext";
 import { firebaseDB } from "../../helpers/firebaseConnect";
 import BlogCard from "./ClassNotesComponents/BlogCard";
 
-
 const Notes = () => {
-    const {setCurrentBlogs, currentBlogs}= useBlog()
-    const [isLoading, setIsLoading] = useState()
-    const {activeTopic}= useBlog()
-// const activeTopic = "react"
-console.log(activeTopic);
-    useEffect(() => {
-        setIsLoading(true);
-        
-        const blogRef = ref(firebaseDB, activeTopic);
-        onValue(blogRef, (snapshot) => {
-          const data = snapshot.val();
-          const blogs = [];
-          for (let id in data) {
-            blogs.push({ id, ...data[id] });
-          }
-          setCurrentBlogs(blogs);
-          setIsLoading(false);
-        });
-      }, [setCurrentBlogs,activeTopic]);
+  const { setCurrentBlogs, currentBlogs } = useBlog();
+  const [isLoading, setIsLoading] = useState();
+  const { activeTopic } = useBlog();
+  useEffect(() => {
+    setIsLoading(true);
 
-console.log(currentBlogs)
+    const blogRef = ref(firebaseDB, activeTopic);
+    onValue(blogRef, (snapshot) => {
+      const data = snapshot.val();
+      const blogs = [];
+      for (let id in data) {
+        blogs.push({ id, ...data[id] });
+      }
+      setCurrentBlogs(blogs);
+      setIsLoading(false);
+    });
+  }, [setCurrentBlogs, activeTopic]);
 
   return (
     <div>
-
-{
-    isLoading ?(<Box sx={{ display: 'flex', justifyContent: 'center',  alignItems: "center",  height:"80vh"}}>
-      <CircularProgress color="primary" size={100} />
-    </Box>): 
-    (
-      <Grid
-              textAlign="left"
-              container
-              spacing={{ xs: 1, md: 3 }}
-              alignItems="stretch"
-              justifyContent="center"
-              rowGap={3}
-            >
-    {currentBlogs?.map(blog=>(
-      <Grid item sm={12} md={6} lg={4} xl={3} key={blog.id} >
-      <BlogCard key={blog.id} blog={blog} activeTopic={activeTopic}/>
-    </Grid>
-      ))}
-      </Grid>
-    )
-}
-
-
-
+      {isLoading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "80vh",
+          }}
+        >
+          <CircularProgress color="primary" size={100} />
+        </Box>
+      ) : (
+        <Grid
+          textAlign="left"
+          container
+          spacing={{ xs: 1, md: 3 }}
+          alignItems="stretch"
+          justifyContent="center"
+          rowGap={3}
+        >
+          {currentBlogs?.map((blog) => (
+            <Grid item sm={12} md={6} lg={4} xl={3} key={blog.id}>
+              <BlogCard key={blog.id} blog={blog} activeTopic={activeTopic} />
+            </Grid>
+          ))}
+        </Grid>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Notes
+export default Notes;

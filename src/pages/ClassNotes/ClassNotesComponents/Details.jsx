@@ -13,29 +13,26 @@ import { useEffect, useState } from "react";
 import { firebaseDB } from "../../../helpers/firebaseConnect";
 import { onValue, ref } from "firebase/database";
 
-
 export default function Details() {
   const navigate = useNavigate();
   const location = useLocation();
-  let {topic,blogid} = useParams()
+  let { topic, blogid } = useParams();
   const { userInfo } = useSession();
   const { deleteOneBlog, activeTopic } = useBlog();
-  const [one, setOne] = useState()
+  const [one, setOne] = useState();
 
-  console.log(topic,blogid);
-  
-  const blog = (!blogid)? location.state.blog:one
-  const { id, title, date, img, comments, detail, explanation, author } = blog ? blog:"";
+  const blog = !blogid ? location.state.blog : one;
+  const { id, title, date, img, comments, detail, explanation, author } = blog
+    ? blog
+    : "";
 
   useEffect(() => {
-    const blogRef = ref(firebaseDB, topic + '/' + blogid);
+    const blogRef = ref(firebaseDB, topic + "/" + blogid);
     onValue(blogRef, (snapshot) => {
       const data = snapshot.val();
       setOne(data);
-      console.log(data);
     });
-  }, [blogid,topic])
-  console.log(one);
+  }, [blogid, topic]);
 
   const handleDelete = () => {
     deleteOneBlog(id, activeTopic);
@@ -46,38 +43,47 @@ export default function Details() {
   };
   return (
     <Container>
-            <Button color="info" onClick={()=>navigate(-1)} sx={{}}>Go back</Button>
+      <Button color="info" onClick={() => navigate(-1)} sx={{}}>
+        Go back
+      </Button>
 
       <Card sx={{ margin: "100px auto" }}>
-        {img&&<CardMedia
-          component="img"
-          alt={title}
-          sx={{
-            objectFit: "scale-down",
-            height: "300px",
-            margin: "0 auto",
-          }}
-          image={img}
-        />}
+        {img && (
+          <CardMedia
+            component="img"
+            alt={title}
+            sx={{
+              objectFit: "scale-down",
+              height: "300px",
+              margin: "0 auto",
+            }}
+            image={img}
+          />
+        )}
         <CardContent>
           <Typography variant="h5" component="div" color="primary">
             {title}
           </Typography>
           <Typography variant="body2" component="div" color="text.secondary">
-            
             {date}
           </Typography>
-          <Paper  elevation={2}  sx={{padding:3}}>
-          {explanation&&<Typography variant="h6" color="text.secondary" gutterBottom>
-            {explanation}
-          </Typography>}
-          <Divider/>
-          {/* kodu alındığı hizada yazdırma */}
-          <Typography variant="h6" color="secondary" sx={{whiteSpace: "pre"}}>
-            {detail}
-          </Typography>
+          <Paper elevation={2} sx={{ padding: 3 }}>
+            {explanation && (
+              <Typography variant="h6" color="text.secondary" gutterBottom>
+                {explanation}
+              </Typography>
+            )}
+            <Divider />
+            {/* kodu alındığı hizada yazdırma */}
+            <Typography
+              variant="h6"
+              color="secondary"
+              sx={{ whiteSpace: "pre" }}
+            >
+              {detail}
+            </Typography>
           </Paper>
-           {comments?.length > 0 && <Comments comments={comments} />}
+          {comments?.length > 0 && <Comments comments={comments} />}
           <Typography mt={3} fontSize={22} align="left">
             <AccountCircle sx={{ marginRight: 1 }} variant="" />{" "}
             <span>{author}</span>

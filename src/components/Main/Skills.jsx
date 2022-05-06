@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Box, CardActionArea, Container, Grid, Paper } from "@mui/material";
+import { Box, CardActionArea, Grid, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import reactSvg from "../../assets/svg/react-2.svg";
 import sassSvg from "../../assets/svg/sass-1.svg";
@@ -18,20 +18,20 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
-const Skills = ({ width1200 }) => {
+const Skills = () => {
   const [coor, setCoor] = useState([]);
-const {width600}=useCustomTheme();
-const {skillListFrontend,skillListStyling}=useBlog();
+  const { width600, width1200 } = useCustomTheme();
+  const { skillListFrontend, skillListStyling } = useBlog();
+  //! simple mouse move effect
   const handleMove = (e) => {
     setCoor([-e.screenX / 100, -e.screenY / 100]);
   };
-  // const [scoor, setScoor] = useState([])
 
   return (
     <Grid
       container
       spacing={2}
-      width={`${width600?"100%":"80vw"}`}
+      width={`${width600 ? "100%" : "80vw"}`}
       height="auto"
       sx={{ overflowY: "auto", gridAutoFlow: "column" }}
       onMouseMove={handleMove}
@@ -44,7 +44,7 @@ const {skillListFrontend,skillListStyling}=useBlog();
 
       <Grid item lg={7} sm={12} sx={{ display: "grid", alignItems: "stretch" }}>
         <Item sx={{ height: "auto" }}>
-          <SkillList skillList={skillListFrontend}/>
+          <SkillList skillList={skillListFrontend} />
         </Item>
       </Grid>
 
@@ -67,13 +67,15 @@ const {skillListFrontend,skillListStyling}=useBlog();
                 alt="react"
                 width="140px"
               />
-              {!width600&&<Typography
-                variant="caption"
-                color="text.secondary"
-                fontSize="3rem"
-              >
-                REACT
-              </Typography>}
+              {!width600 && (
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  fontSize="3rem"
+                >
+                  REACT
+                </Typography>
+              )}
             </Box>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
@@ -107,9 +109,11 @@ const {skillListFrontend,skillListStyling}=useBlog();
                 alt="sass"
                 width="200px"
               />
-              {!width600&&<Typography variant="h4" color="text.secondary" fontSize="3rem">
-                SASS
-              </Typography>}
+              {!width600 && (
+                <Typography variant="h4" color="text.secondary" fontSize="3rem">
+                  SASS
+                </Typography>
+              )}
             </Box>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
@@ -125,7 +129,7 @@ const {skillListFrontend,skillListStyling}=useBlog();
       {/* row height  equalized */}
       <Grid item lg={7} sm={12} sx={{ display: "grid", alignItems: "stretch" }}>
         <Item>
-          <SkillList skillList={skillListStyling}/>
+          <SkillList skillList={skillListStyling} />
         </Item>
       </Grid>
     </Grid>

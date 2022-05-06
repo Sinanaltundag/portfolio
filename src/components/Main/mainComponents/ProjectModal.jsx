@@ -12,7 +12,6 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  //   width: 400,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -41,31 +40,38 @@ export default function ProjectModal({ open, setOpen, data }) {
             </Typography>
             {/* get images from public dynamic */}
             <img src={process.env.PUBLIC_URL + `${data.img}`} alt="" />
-              <ul>
-                {data.details?.map((item,i) => (
-            <Typography key={i} id="transition-modal-description" sx={{ mt: 2 }}>
-                  <li >{item}</li>
-            </Typography>
-                ))}
-              </ul>
+            <ul>
+              {data.details?.map((item, i) => (
+                <Typography
+                  key={i}
+                  id="transition-modal-description"
+                  sx={{ mt: 2 }}
+                >
+                  <li>{item}</li>
+                </Typography>
+              ))}
+            </ul>
             <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'between',
-        
-        '& > *': {
-          m: 1,
-        },
-      }}
-    >
-      
-      <ButtonGroup variant="text" aria-label="text button group" fullWidth>
-            <Button onClick={() => setOpen(false)}>Close</Button>
-            <Button href={data.url} target="_blank">Go to Page</Button>
-        
-      </ButtonGroup>
-    </Box>
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "between",
+                "& > *": {
+                  m: 1,
+                },
+              }}
+            >
+              <ButtonGroup
+                variant="text"
+                aria-label="text button group"
+                fullWidth
+              >
+                <Button onClick={() => setOpen(false)}>Close</Button>
+                <Button href={data.url} target="_blank">
+                  Go to Page
+                </Button>
+              </ButtonGroup>
+            </Box>
           </Box>
         </Fade>
       </Modal>

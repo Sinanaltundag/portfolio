@@ -1,4 +1,3 @@
-import React, { forwardRef, useContext, useRef, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import AdminPanel from "../pages/Admin/AdminPanel";
 import SignIn from "../pages/Admin/SignIn";
@@ -16,14 +15,11 @@ import Details from "../pages/ClassNotes/ClassNotesComponents/Details";
 const Router = () => {
   const { theme } = useCustomTheme();
 
- 
-
-
   return (
     <>
       <ThemeProvider theme={theme}>
         <BlogProvider>
-            <Navbar />
+          <Navbar />
           <Box
             backgroundColor="background.paper"
             style={{ minHeight: "100vh" }}
@@ -31,13 +27,11 @@ const Router = () => {
             <Routes>
               <Route path="/" element={<Main />} />
               <Route path="/Main" element={<Main />} />
-              {/*! signin sayfasına login yapan girmemeli */}
               <Route path="/SignIn" element={<SignIn />} />
               <Route path="/SignUp" element={<SignUp />} />
-
-                {/* <Route path="/details/:topic/:blogid" element={<Details/>} /> */}
-              <Route path="details" element={<Details />} >
-                <Route path=":topic/:blogid" element={<Details/>} />
+              <Route path="details" element={<Details />}>
+              {/* for shared link */}
+                <Route path=":topic/:blogid" element={<Details />} />
               </Route>
               <Route path="/Class%20Notes" element={<ClassNotes />} />
               <Route path="/AdminPanel" element={<AdminRouter />}>
