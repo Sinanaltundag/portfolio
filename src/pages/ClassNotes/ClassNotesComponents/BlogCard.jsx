@@ -2,48 +2,37 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { AccountCircle } from "@mui/icons-material";
+import { AccountCircle, Share } from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { IconButton, Rating } from "@mui/material";
+import { Box, Container, IconButton, Popover, Rating } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
-// import CommentBox from './CommentBox';
 import { useSession } from "../../../Context/SessionContext";
 import CommentBox from "./CommentBox";
 import { useBlog } from "../../../Context/DataContext";
 import { useRef, useState } from "react";
 import { toast } from "react-toastify";
+import { EmailIcon, EmailShareButton, FacebookIcon, FacebookShareButton, FacebookShareCount, LinkedinIcon, LinkedinShareButton, TwitterShareButton, WhatsappIcon, WhatsappShareButton } from "react-share";
 
 export default function BlogCard({ blog, activeTopic }) {
-  let { title, date, like, detail, author, rating } = blog;
-  let averageRating = useRef(5)
+  let {id, title, date, like, detail, author, rating, subtopic } = blog;
+  let averageRating = useRef()
   if (rating) {
     let rateList = rating.map(item=>Object.values(item))
     averageRating.current = rateList.reduce((a,b) =>+a + +b)/rateList.length;
     
   }
   const [rate, setRate] = useState(averageRating.current);
+  const [anchorEl, setAnchorEl] = useState(null);
   const { userInfo } = useSession();
   const { editBlog } = useBlog();
+  const baseUrl = window.location.origin;
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/details", { state: { blog } });
   };
   const handleLiked = () => {
     if (userInfo) {
-      // if (like) {
-      //   if (like.includes(userInfo?.email)) {
-      //     editBlog(
-      //       { ...blog, like: like.filter(email=> (email!==userInfo.email)) },
-      //       activeTopic
-      //     );
-      //   } else {
-      //     editBlog({ ...blog, like: [...like, userInfo?.email] }, activeTopic);
-      //   }
-      //   console.log("first");
-      // } else {
-      //   editBlog({ ...blog, like: [userInfo?.email] }, activeTopic);
-      // }
+
       //! nested ternary same as above
       like?like.includes(userInfo?.email)?editBlog({...blog, like:like.filter(email=> (email!==userInfo.email))},activeTopic):editBlog({...blog, like:[...like,userInfo?.email]},activeTopic):editBlog({...blog, like:[userInfo?.email]},activeTopic)
     }
@@ -72,6 +61,16 @@ export default function BlogCard({ blog, activeTopic }) {
 
 // like?like.includes(userInfo?.email)||editBlog({...blog, rating:[...rating,userInfo?.email]},activeTopic):editBlog({...blog, rating:[userInfo?.email]},activeTopic)
   };
+
+  const handleShare = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseShare = () => {
+    setAnchorEl(null);
+  };
+  const open = Boolean(anchorEl);
+  const shareId = open ? 'simple-popover' : undefined;
 
   return (
     <Card raised sx={{ maxWidth: 345, margin: "auto", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
@@ -110,11 +109,39 @@ export default function BlogCard({ blog, activeTopic }) {
         <CommentBox blog={blog} userInfo={userInfo} activeTopic={activeTopic} />
         <Rating
           name="rating"
+          defaultValue={rate}
           value={rate}
-          precision={0.5}
+          // precision={0.5}
           onChange={(event, newValue) => handleRate(event, newValue)}
         />{" "}
           <span color="primary">Rates: {rating?.length || 0}</span>
+          <Share  onClick={handleShare} />
+          <Popover 
+          id={shareId}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleCloseShare}
+  anchorOrigin={{
+    vertical: 'bottom',
+    horizontal: 'center',
+  }}
+  transformOrigin={{
+    vertical: 'top',
+    horizontal: 'center',
+  }}
+>
+<Box sx={{display:"flex", padding:1, gap:1}} >
+  <EmailShareButton url={`${baseUrl}/details/${activeTopic}/${id}`} subject={title} body={`${userInfo.email} share this blog with you. \n\n`}  >
+          <EmailIcon size={32} round />
+          </EmailShareButton> 
+          <WhatsappShareButton url={`${baseUrl}/details/${activeTopic}/${id}`} title={`I think this is an useful content about ${subtopic} for ${activeTopic}`} >
+<WhatsappIcon size={32} round />
+          </WhatsappShareButton>
+<FacebookShareButton url={`${baseUrl}/details/${activeTopic}/${id}`} quote={title} summary={`#${title}`} >
+  <FacebookIcon size={32} round />
+</FacebookShareButton>
+	          </Box>
+</Popover>
       </CardActions>
     </Card>
   );
