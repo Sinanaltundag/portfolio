@@ -52,7 +52,6 @@ export default function ProjectSamples({ width1200, projects, title }) {
     setProjectData(item);
     setOpen(true);
   };
-console.log(projects)
   return (
     <ImageList sx={{ marginTop: 0 }}>
       <ProjectModal open={open} setOpen={setOpen} data={projectData} />

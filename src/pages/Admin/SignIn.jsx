@@ -46,7 +46,6 @@ export default function SignIn() {
   };
   console.log(navbarHeight);
   return (
-    // <ThemeProvider theme={theme}>
     <Container
       component="main"
       maxWidth="xs"
@@ -177,6 +176,5 @@ export default function SignIn() {
         )
       }
     </Container>
-    // </ThemeProvider>
   );
 }

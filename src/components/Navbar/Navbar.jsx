@@ -152,7 +152,7 @@ setting==="LogOut"&& setSignIn(false);
                 {/* avatar get from user if signin else first letter of email */}
                 <Avatar
                   alt={userInfo && userInfo.email?.toUpperCase()}
-                  src={userInfo?.photoURL ? AvatarImg: "null"}
+                  src={userInfo?.photoURL ? userInfo?.photoURL: ""}
                 />
               </IconButton>
             </Tooltip>

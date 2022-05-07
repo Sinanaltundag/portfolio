@@ -6,6 +6,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { useContext, useState, useEffect, createContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { auth, googleProvider } from "../helpers/firebaseConnect";
 
@@ -18,6 +19,7 @@ export function useSession() {
 export function SessionProvider({ children }) {
   const [userInfo, setUserInfo] = useState();
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   function login(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
@@ -43,7 +45,10 @@ export function SessionProvider({ children }) {
   function loginWithGoogle() {
     googleProvider.setCustomParameters({ prompt: "select_account" });
     signInWithPopup(auth, googleProvider)
-      .then((result) => {})
+      .then((result) => {
+        toast(`Welcome ${result.user.displayName}`)
+        navigate("/")
+      })
       .catch((error) => {
         toast(`Incorrect password or invalid credentials: ${error.message}`);
       });
