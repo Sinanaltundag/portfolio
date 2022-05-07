@@ -12,6 +12,7 @@ import Comments from "./Comments";
 import { useEffect, useState } from "react";
 import { firebaseDB } from "../../../helpers/firebaseConnect";
 import { onValue, ref } from "firebase/database";
+import { useCustomTheme } from "../../../Context/ThemeContext";
 
 export default function Details() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function Details() {
   const { userInfo } = useSession();
   const { deleteOneBlog, activeTopic } = useBlog();
   const [one, setOne] = useState();
-
+const {navbarHeight} =useCustomTheme();
   const blog = !blogid ? location.state.blog : one;
   const { id, title, date, img, comments, detail, explanation, author } = blog
     ? blog
@@ -42,12 +43,12 @@ export default function Details() {
     navigate("/AdminPanel", { state: { blog } });
   };
   return (
-    <Container>
-      <Button color="info" onClick={() => navigate(-1)} sx={{}}>
+    <Container sx={{paddingTop: `${navbarHeight}px` }}>
+      <Button color="warning" variant="outlined" sx={{margin:2}} onClick={() => navigate(-1)} >
         Go back
       </Button>
 
-      <Card sx={{ margin: "100px auto" }}>
+      <Card >
         {img && (
           <CardMedia
             component="img"

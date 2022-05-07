@@ -13,7 +13,6 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, NavLink } from "react-router-dom";
 import {useSession} from "../../Context/SessionContext";
-import AvatarImg from "../../assets/avatar.jpg";
 import LogoutDialog from "../../helpers/LogoutDialog";
 import  { MaterialUISwitch } from "./toggle";
 import { ButtonGroup, FormControlLabel} from "@mui/material";
