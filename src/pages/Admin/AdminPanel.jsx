@@ -25,9 +25,9 @@ const AdminPanel = () => {
   const { navbarHeight } = useCustomTheme();
 // usememo with object
   const topics = useMemo(() =>{ return{
-    react: ["hooks", "components", "libraries"],
-    javascript: ["functions", "short-methods", "libraries"],
-    styling: ["css", "sass", "frameworks"],
+    react: ["hooks", "components", "libraries", "tricks"],
+    javascript: ["functions", "short-methods", "libraries", "tricks"],
+    styling: ["css", "sass", "frameworks", "tricks"],
   }},[]) ;
 
   const handleSubmit = (e) => {
