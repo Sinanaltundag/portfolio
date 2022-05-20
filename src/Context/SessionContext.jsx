@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import { useContext, useState, useEffect, createContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -25,7 +26,7 @@ export function SessionProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password);
   }
 
-  async function createUser(email, password, displayName) {
+  async function createUser(email, password) {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       //! get user name , photo when create user (not working) study
@@ -35,6 +36,21 @@ export function SessionProvider({ children }) {
       }); */
     } catch (err) {
       alert(err.message);
+    }
+  }
+  function updateUserProfile(displayName, photoURL) {
+    try {
+      updateProfile(auth.currentUser, {
+        displayName: displayName,
+        photoURL: photoURL,
+      })
+      toast(
+        "Your profile been Updated' "
+      );
+    } catch (error) {
+      toast(
+        error.message
+      );
     }
   }
 
@@ -97,6 +113,7 @@ export function SessionProvider({ children }) {
     updateEmail,
     loginWithGoogle,
     setUserInfo,
+    updateUserProfile,
   };
 
   return (

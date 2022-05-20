@@ -43,9 +43,9 @@
 ### Planning to do
 
  - [ ] Give permission to users for add own contents
- - [ ] Add profile page to show users their activities on page
+ - [x] Add profile page to show users their activities on page
        (favorites, rates, own blogs etc)
- - [ ] Add fullname and photo feature for show on navbar, profile page
+ - [x] Add fullname and photo feature for show on navbar, profile page
        etc
  - [ ] Different themes for users
  - [ ] Add search function acording to section or word

@@ -17,7 +17,6 @@ import ResetPassword from "./AdminComponents/ResetPassword";
 import { IconButton } from "@mui/material";
 import { useCustomTheme } from "../../Context/ThemeContext";
 
-
 export default function SignUp() {
   const { userInfo, createUser, loginWithGoogle, logout } = useSession();
   const navigate = useNavigate();
@@ -28,25 +27,19 @@ export default function SignUp() {
 
     const data = new FormData(event.currentTarget);
     const user = {
-      displayName: data.get("displayName"),
       email: data.get("email"),
       password: data.get("password"),
       confirmPassword: data.get("password2"),
-      photoURL: data.get("photoURL"),
     };
     if (user.password === user.confirmPassword && user.password.length > 5) {
-      createUser(user.email, user.password, user.displayName);
+      createUser(user.email, user.password);
+      navigate("/UserInfo");
     } else {
       toast(
         "Your password must be at least 6 characters and must match 'confirm password' "
       );
     }
   };
-
-  //! kullanıcı adı ve fotoğrafını kayıt esnasında ekleme yapılamadı
-  // useEffect(() => {
-  //   updateUserProfile(newUser?.displayName,newUser?.photoURL)
-  // }, [userInfo,newUser])
 
   const handleWithGoogle = () => {
     loginWithGoogle();
@@ -58,7 +51,11 @@ export default function SignUp() {
   };
 
   return (
-    <Container component="main" maxWidth="xs" sx={{paddingTop: `${navbarHeight}px` }}>
+    <Container
+      component="main"
+      maxWidth="xs"
+      sx={{ paddingTop: `${navbarHeight}px` }}
+    >
       <CssBaseline />
       {
         //kullanıcı girişi yapıldıysa logout sayfası
@@ -130,16 +127,6 @@ export default function SignUp() {
                 margin="normal"
                 required
                 fullWidth
-                id="displayName"
-                label="Full Name"
-                name="displayName"
-                autoComplete="displayName"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
                 id="email"
                 label="Email Address"
                 name="email"
@@ -164,14 +151,6 @@ export default function SignUp() {
                 type="password"
                 id="password2"
                 autoComplete="current-password"
-              />
-              <TextField
-                margin="normal"
-                fullWidth
-                id="photoURL"
-                label="Photo URL"
-                name="photoURL"
-                autoComplete="photoURL"
               />
 
               <Button
@@ -212,6 +191,5 @@ export default function SignUp() {
         )
       }
     </Container>
-    // </ThemeProvider>
   );
 }
