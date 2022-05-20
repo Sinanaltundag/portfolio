@@ -8,10 +8,10 @@ import BlogCard from "./ClassNotesComponents/BlogCard";
 const Notes = () => {
   const { setCurrentBlogs, currentBlogs } = useBlog();
   const [isLoading, setIsLoading] = useState();
-  const { activeTopic } = useBlog();
+  const { activeTopic, getFavorites } = useBlog();
   useEffect(() => {
     setIsLoading(true);
-
+  
     const blogRef = ref(firebaseDB, activeTopic);
     onValue(blogRef, (snapshot) => {
       const data = snapshot.val();
@@ -23,6 +23,11 @@ const Notes = () => {
       setIsLoading(false);
     });
   }, [setCurrentBlogs, activeTopic]);
+
+  //! at blogcard component control if favorite added before. fetch favorites of current user here once
+useEffect(() => {
+  getFavorites()
+}, [])
 
   return (
     <div>
