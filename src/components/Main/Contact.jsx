@@ -138,7 +138,7 @@ const Contact = () => {
             name="subject"
             multiline
             maxRows={4}
-            // helperText="Feel free to ask about everything."
+            helperText="Feel free to ask about everything."
             fullWidth
             size={`${width1000?"small":"medium"}`}
           />

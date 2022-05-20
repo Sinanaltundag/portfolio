@@ -44,7 +44,6 @@ export default function SignIn() {
     logout();
     navigate("/");
   };
-  console.log(navbarHeight);
   return (
     <Container
       component="main"
