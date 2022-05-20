@@ -22,6 +22,8 @@ import {
 
 export default function BlogCard({ blog, activeTopic }) {
   let { id, title, date, like, detail, author, rating, subtopic } = blog;
+  const {favoriteBlogs, deleteOneBlog} = useBlog()
+
   let averageRating = useRef();
   //! average rating calculation
   if (rating) {
@@ -32,15 +34,22 @@ export default function BlogCard({ blog, activeTopic }) {
   const [rate, setRate] = useState(averageRating.current);
   const [anchorEl, setAnchorEl] = useState(null);
   const { userInfo } = useSession();
-  const { editBlog } = useBlog();
+  const { editBlog, addFavorite } = useBlog();
   //! get base url 
   const baseUrl = window.location.origin;
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/details", { state: { blog } });
   };
-  const handleLiked = () => {
+  const handleLiked = async () => {
+    //! alternative favorite list for improved fetch
     if (userInfo) {
+      const foundFavorite = await favoriteBlogs.find(f=> f.favid === id)
+      if (foundFavorite) {
+        deleteOneBlog( foundFavorite.id,"favorites/"+userInfo.uid)
+      } else {
+        addFavorite({"topic":activeTopic,"favid":blog.id, "title": title}, "favorites/"+userInfo.uid)
+      }
       //! nested ternary same as above
       like
         ? like.includes(userInfo?.email)
@@ -53,6 +62,8 @@ export default function BlogCard({ blog, activeTopic }) {
             )
           : editBlog({ ...blog, like: [...like, userInfo?.email] }, activeTopic)
         : editBlog({ ...blog, like: [userInfo?.email] }, activeTopic);
+    } else {
+      toast("You must be logged in to add this subject to your favorites")
     }
   };
 
@@ -79,6 +90,8 @@ export default function BlogCard({ blog, activeTopic }) {
           activeTopic
         );
       }
+    } else {
+      toast("You must be logged in to rate this subject")
     }
 //! ternary 
     // like?like.includes(userInfo?.email)||editBlog({...blog, rating:[...rating,userInfo?.email]},activeTopic):editBlog({...blog, rating:[userInfo?.email]},activeTopic)
