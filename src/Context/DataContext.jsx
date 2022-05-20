@@ -1,4 +1,4 @@
-import {  push, ref, remove, set, update } from "firebase/database";
+import {  onValue, push, ref, remove, set, update } from "firebase/database";
 import { useContext, useState, createContext } from "react";
 import { toast } from "react-toastify";
 import { firebaseDB } from "../helpers/firebaseConnect";
@@ -10,6 +10,7 @@ import {
   SassSvg,
   MuiSvg,
 } from "../assets/svg/SvgIcons";
+import { useSession } from "./SessionContext";
 
 const BlogContext = createContext();
 
@@ -20,16 +21,39 @@ export function useBlog() {
 export function BlogProvider({ children }) {
   const [currentBlogs, setCurrentBlogs] = useState();
   const [activeTopic, setActiveTopic] = useState("react");
+  const [isLoading, setIsLoading] = useState(false)
+  const [favoriteBlogs, setFavoriteBlogs] = useState([]);
+
+  const {userInfo} = useSession()
+
 
   function addBlog(newBlog, dbName) {
     const blogRef = ref(firebaseDB, dbName);
     const newBlogRef = push(blogRef);
     set(newBlogRef, newBlog);
   }
+  function addFavorite(newUserFavorite, dbName) {
+    const blogRef = ref(firebaseDB, dbName);
+    const newBlogRef = push(blogRef);
+    set(newBlogRef, newUserFavorite);
+  }
+  function getFavorites() {
+    setIsLoading(true);
+      const favRef = ref(firebaseDB, "favorites/"+userInfo.uid);
+      onValue(favRef, (snapshot) => {
+        const data = snapshot.val();
+        const favorites = [];
+        for (let id in data) {
+          favorites.push({ id, ...data[id] });
+        }
+        setFavoriteBlogs(favorites);
+        setIsLoading(false);
+      });
+  }
 
   function deleteOneBlog(id, dbName) {
     remove(ref(firebaseDB, dbName + "/" + id));
-    toast("Record Deleted");
+    // toast("Record Deleted");
   }
 
   function editBlog(blog, dbName) {
@@ -261,6 +285,10 @@ export function BlogProvider({ children }) {
     javascriptProjects,
     skillListStyling,
     skillListFrontend,
+    addFavorite,
+    getFavorites,
+    isLoading,
+    favoriteBlogs
   };
 
   return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;
