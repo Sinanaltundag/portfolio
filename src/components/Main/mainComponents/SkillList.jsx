@@ -12,6 +12,7 @@ export default function SkillList({ skillList }) {
       sx={{
         minWidth: 500,
         bgcolor: "background.paper",
+        borderRadius: "10px"
       }}
     >
       {skillList.map((skill, i) => (

@@ -18,7 +18,7 @@ import  { MaterialUISwitch } from "./toggle";
 import { ButtonGroup, FormControlLabel} from "@mui/material";
 import { useCustomTheme } from "../../Context/ThemeContext";
 
-const pages = ["Main", "Class Notes"];
+const pages = ["Main", "deneme", "Class_Notes"];
 const settings = ["SignIn", "SignUp"];
 
 const Navbar = () => {
@@ -55,6 +55,16 @@ setting==="LogOut"&& setSignIn(false);
 
   }, [setNavbarHeight]);
   
+  let activeStyle = {
+    textDecorationColor: "red",
+    color: "brown",
+  };
+  let nonActiveStyle = {
+    textDecoration: "none",
+    opacity: 0.8,
+    color: "white",
+  };
+  
 
   return (
     <AppBar position="fixed"  sx={{ color:"text.primary"}} >
@@ -65,7 +75,8 @@ setting==="LogOut"&& setSignIn(false);
             variant="h4"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            // color={"text.primary"}
+            sx={{ mr: 2, display: { xs: "none", md: "flex" }, fontFamily:"cursive" }}
           >
             Sinan's Portfolio
           </Typography>
@@ -106,13 +117,13 @@ setting==="LogOut"&& setSignIn(false);
         aria-label="vertical contained button group"
         fullWidth
       >
-                    <Link to={page}>
+                    <NavLink to={page} >
                       <Button  >
                   <Typography textAlign="center"  >
                       {page}
                   </Typography>
                       </Button>
-                    </Link>
+                    </NavLink>
                       </ButtonGroup>
                 </MenuItem>
               ))}
@@ -127,17 +138,47 @@ setting==="LogOut"&& setSignIn(false);
             Sinan's Portfolio
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <NavLink to={page} key={page}>
+          <NavLink to={"Main"}
+              style={({ isActive }) =>isActive ? activeStyle : nonActiveStyle
+            }
+            >
                 <Button
                 size="large"
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                >
-                  {page}
+                  sx={{ my: 2, color:"inherit", display: "block" }}
+                ><Typography variant="h5" sx={{mx: 2, }}>
+                  Main
+                  </Typography>
                 </Button>
               </NavLink>
-            ))}
+              <NavLink to={"Class%20Notes"}  
+              style={({ isActive }) =>isActive ? activeStyle : nonActiveStyle
+            }
+            >
+                <Button
+                size="large"
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color:"inherit", display: "block" }}
+                ><Typography variant="h5" >
+                  Class Notes
+                  </Typography>
+                </Button>
+              </NavLink>
+            {/* {pages.map((page) => (
+              <NavLink to={page} key={page} 
+              style={({ isActive }) =>isActive ? activeStyle : undefined
+            }
+            >
+                <Button
+                size="large"
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color:"inherit", display: "block" }}
+                ><Typography variant="h6">
+                  {page}
+                  </Typography>
+                </Button>
+              </NavLink>
+            ))} */}
           </Box>
           
 

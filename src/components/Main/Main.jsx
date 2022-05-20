@@ -63,10 +63,11 @@ const Main = () => {
               height: "100%",
             }}
           >
-            <Box>
-              <Typography variant={`${width1200 ? "h4" : "h3"}`}>
+            <Box sx={{ display: "flex",}}>
+              <Typography variant={`${width1200 ? "h4" : "h3"}`} sx={{writingMode: "vertical-rl", textOrientation: "upright"}}>
                 PROJECTS
               </Typography>
+              <div>
               <Animator animation={MoveOut(-1000, 0)}>
                 <ProjectSamples
                   width1200={width1200}
@@ -90,6 +91,7 @@ const Main = () => {
                   />
                 </Animator>
               )}
+              </div>
             </Box>
           </div>
         </ScrollPage>
@@ -103,10 +105,12 @@ const Main = () => {
             }}
           >
             <Animator animation={Zoom(2, 1)}>
-              <Typography variant={`${width1200 ? "h4" : "h3"}`}>
-                Contact
+            <Box sx={{ display: "flex",}}>
+              <Typography variant={`${width1200 ? "h4" : "h3"}`}  sx={{writingMode: "vertical-rl", textOrientation: "upright"}}>
+                CONTACT
               </Typography>
               <Contact />
+              </Box>
             </Animator>
           </Container>
         </ScrollPage>

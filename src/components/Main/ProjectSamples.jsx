@@ -23,7 +23,7 @@ import ProjectModal from "./mainComponents/ProjectModal";
 //   },
 
 // }));
-
+// styled components for projects
 const Styledimg = styled("img")`
   opacity: 0.8;
   transition: all 0.5s;
@@ -55,10 +55,11 @@ export default function ProjectSamples({ width1200, projects, title }) {
   return (
     <ImageList sx={{ marginTop: 0 }}>
       <ProjectModal open={open} setOpen={setOpen} data={projectData} />
-      <ImageListItem key="Subheader" cols={width1200 ? 2 : 4}>
+      {/* responsive image bars */}
+      <ImageListItem key="Subheader" cols={width1200 ? 2 : 4} >
         <ListSubheader
           component="div"
-          sx={{ backgroundColor: "primary.dark", color: "white", fontSize: 25 }}
+          sx={{ backgroundColor: "primary.dark", color: "white", fontSize: 25,  borderRadius: "10px", display:`${width1200&&"none"}`}}
         >
           {title}
         </ListSubheader>
@@ -66,7 +67,7 @@ export default function ProjectSamples({ width1200, projects, title }) {
       {projects.map((item) => (
         <ImageListItem
           key={item.img}
-          sx={{ cursor: "pointer", width: 250, height: 150 }}
+          sx={{ cursor: "pointer", width: 250, height: 150,  borderRadius: "10px" }}
           onClick={(e) => handleOpen(e, item)}
         >
           <Styledimg
@@ -74,7 +75,7 @@ export default function ProjectSamples({ width1200, projects, title }) {
             src={process.env.PUBLIC_URL + `${item.img}`}
             alt={item.title}
             loading="lazy"
-            style={{}}
+            style={{ borderRadius: "10px"}}
           />
 
           <ImageListItemBar

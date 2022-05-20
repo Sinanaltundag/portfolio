@@ -1,4 +1,4 @@
-import { Box, CardContent, CardMedia, Typography } from "@mui/material";
+import { Box, CardContent, CardMedia, createTheme, ThemeProvider, Typography } from "@mui/material";
 import React from "react";
 import aboutGif from "../../assets/AboutGif.gif";
 import { useCustomTheme } from "../../Context/ThemeContext";
@@ -6,6 +6,12 @@ import { useCustomTheme } from "../../Context/ThemeContext";
 const About = () => {
   //! custom breakpoints for good responsive design
   const { width1000, width800, width600 } = useCustomTheme();
+
+  const aboutFont = createTheme({
+    typography: {
+      fontFamily: ["Exo", "Girassol", '"Permanent Marker"', "Roboto"].join(","),
+    },
+  });
 
   return (
     <Box
@@ -53,10 +59,11 @@ const About = () => {
           )}
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <CardContent>
+            <ThemeProvider theme={aboutFont}>
               <Typography gutterBottom variant="h4" component="div">
                 ABOUT
               </Typography>
-              <Typography variant={`${width600 ? "h6" : "h5"}`}>
+              <Typography variant={`${width600 ? "h6" : "h5"}`} >
                 A curious developer with high learning skills and fast adapt to
                 new technologies. Persistant to overcome challanges, search
                 different methods to make effective solutions. Care to visual,
@@ -70,6 +77,7 @@ const About = () => {
                 businesslike study for last eighteen months on Fullstack
                 Development.
               </Typography>
+              </ThemeProvider>
             </CardContent>
           </Box>
         </Box>

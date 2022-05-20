@@ -42,14 +42,14 @@ const Skills = () => {
         </Typography>
       </Grid>
 
-      <Grid item lg={7} sm={12} sx={{ display: "grid", alignItems: "stretch" }}>
-        <Item sx={{ height: "auto" }}>
+      <Grid item lg={7} sm={12} sx={{ display: "grid", alignItems: "stretch",  }}>
+        <Item sx={{ height: "auto", borderRadius: "10px" }}>
           <SkillList skillList={skillListFrontend} />
         </Item>
       </Grid>
 
       <Grid item lg={5} sm={12}>
-        <Card sx={{ minWidth: 345 }}>
+        <Card sx={{ minWidth: 345, borderRadius: "10px" }}>
           <CardActionArea sx={{ display: `${width1200 ? "flex" : "inline"}` }}>
             <Box
               sx={{
@@ -90,7 +90,7 @@ const Skills = () => {
         </Card>
       </Grid>
       <Grid item lg={5} sm={12}>
-        <Card sx={{ minWidth: 345 }}>
+        <Card sx={{ minWidth: 345, borderRadius: "10px" }}>
           <CardActionArea sx={{ display: `${width1200 ? "flex" : "inline"}` }}>
             <Box
               sx={{
@@ -128,7 +128,7 @@ const Skills = () => {
       </Grid>
       {/* row height  equalized */}
       <Grid item lg={7} sm={12} sx={{ display: "grid", alignItems: "stretch" }}>
-        <Item>
+        <Item sx={{ height: "auto", borderRadius: "10px" }}>
           <SkillList skillList={skillListStyling} />
         </Item>
       </Grid>
