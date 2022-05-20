@@ -182,13 +182,13 @@ const Contact = () => {
             />
           </StyledBadge>
           
-          <Typography variant="body1" noWrap paragraph gutterBottom sx={{}}>
+          <Typography variant={`${width1000?"body1":"h5"}`} noWrap paragraph gutterBottom sx={{}}>
             <ContactMailIcon /> peykani@gmail.com{" "}
           </Typography>
-          <Typography variant="h5" noWrap paragraph gutterBottom>
+          <Typography variant={`${width1000?"body1":"h5"}`} noWrap paragraph gutterBottom>
             <PhoneIcon /> +90 543 654 2460{" "}
           </Typography>
-          <Typography variant="h5" noWrap paragraph gutterBottom>
+          <Typography variant={`${width1000?"body1":"h5"}`} noWrap paragraph gutterBottom>
             <MyLocationOutlinedIcon /> Trabzon / TURKEY{" "}
           </Typography>
           </Box>

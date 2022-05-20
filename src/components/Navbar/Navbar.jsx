@@ -146,7 +146,7 @@ setting==="LogOut"&& setSignIn(false);
                 size="large"
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color:"inherit", display: "block" }}
-                ><Typography variant="h5" sx={{mx: 2, }}>
+                ><Typography variant="h6" sx={{mx: 2, }}>
                   Main
                   </Typography>
                 </Button>
@@ -158,8 +158,9 @@ setting==="LogOut"&& setSignIn(false);
                 <Button
                 size="large"
                   onClick={handleCloseNavMenu}
+                  // variant="outlined"
                   sx={{ my: 2, color:"inherit", display: "block" }}
-                ><Typography variant="h5" >
+                ><Typography variant="h6" >
                   Class Notes
                   </Typography>
                 </Button>
