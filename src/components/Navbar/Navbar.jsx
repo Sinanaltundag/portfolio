@@ -12,20 +12,20 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, NavLink } from "react-router-dom";
-import {useSession} from "../../Context/SessionContext";
+import { useSession } from "../../Context/SessionContext";
 import LogoutDialog from "../../helpers/LogoutDialog";
-import  { MaterialUISwitch } from "./toggle";
-import { ButtonGroup, FormControlLabel} from "@mui/material";
+import { MaterialUISwitch } from "./toggle";
+import { ButtonGroup, FormControlLabel } from "@mui/material";
 import { useCustomTheme } from "../../Context/ThemeContext";
 
-const pages = ["Main", "deneme", "Class_Notes"];
+const pages = ["Main", "Class Notes"]; // class notes daki boşluktan dolayı navlink isactive çalışmadı
 const settings = ["SignIn", "SignUp"];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { setActiveTheme,activeTheme } = useCustomTheme();
-  const {userInfo}= useSession()
+  const { setActiveTheme, activeTheme } = useCustomTheme();
+  const { userInfo } = useSession();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -42,19 +42,14 @@ const Navbar = () => {
     setAnchorElUser(null);
   };
 
-  /*   const handleUserMenuBtn =(setting)=>{
-setting==="LogOut"&& setSignIn(false);
-  } */
-
   const { setNavbarHeight } = useCustomTheme();
 
   //!  background için navbar yüksekliğine göre box yükseklik ayarlama "fixed olduğundan buraya koyduk"
   const nav = React.useRef();
   React.useEffect(() => {
     setNavbarHeight(nav.current.clientHeight);
-
   }, [setNavbarHeight]);
-  
+
   let activeStyle = {
     textDecorationColor: "red",
     color: "brown",
@@ -64,178 +59,187 @@ setting==="LogOut"&& setSignIn(false);
     opacity: 0.8,
     color: "white",
   };
-  
 
   return (
-    <AppBar position="fixed"  sx={{ color:"text.primary"}} >
-    <div ref={nav}>
-      <Container  maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h4"
-            noWrap
-            component="div"
-            // color={"text.primary"}
-            sx={{ mr: 2, display: { xs: "none", md: "flex" }, fontFamily:"cursive" }}
-          >
-            Sinan's Portfolio
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { sm: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+    <AppBar position="fixed" sx={{ color: "text.primary" }}>
+      <div ref={nav}>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Typography
+              variant="h4"
+              noWrap
+              component="div"
               sx={{
-                display: { sm: "block", md: "none" },
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "cursive",
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <ButtonGroup
-        orientation="vertical"
-        aria-label="vertical contained button group"
-        fullWidth
-      >
-                    <NavLink to={page} >
-                      <Button  >
-                  <Typography textAlign="center"  >
-                      {page}
-                  </Typography>
-                      </Button>
-                    </NavLink>
-                      </ButtonGroup>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { sm: "flex", md: "none" } }}
-          >
-            Sinan's Portfolio
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-          <NavLink to={"Main"}
-              style={({ isActive }) =>isActive ? activeStyle : nonActiveStyle
-            }
-            >
-                <Button
-                size="large"
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color:"inherit", display: "block" }}
-                ><Typography variant="h6" sx={{mx: 2, }}>
-                  Main
-                  </Typography>
-                </Button>
-              </NavLink>
-              <NavLink to={"Class%20Notes"}  
-              style={({ isActive }) =>isActive ? activeStyle : nonActiveStyle
-            }
-            >
-                <Button
-                size="large"
-                  onClick={handleCloseNavMenu}
-                  // variant="outlined"
-                  sx={{ my: 2, color:"inherit", display: "block" }}
-                ><Typography variant="h6" >
-                  Class Notes
-                  </Typography>
-                </Button>
-              </NavLink>
-            {/* {pages.map((page) => (
-              <NavLink to={page} key={page} 
-              style={({ isActive }) =>isActive ? activeStyle : undefined
-            }
-            >
-                <Button
-                size="large"
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color:"inherit", display: "block" }}
-                ><Typography variant="h6">
-                  {page}
-                  </Typography>
-                </Button>
-              </NavLink>
-            ))} */}
-          </Box>
-          
+              Sinan's Portfolio
+            </Typography>
 
-<FormControlLabel
-        control={<MaterialUISwitch sx={{ m: 1 }}  onChange={()=>setActiveTheme(!activeTheme)}/>}
-        label="Dark Mode"
-      />
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {/* avatar get from user if signin else first letter of email */}
-                <Avatar
-                  alt={userInfo && userInfo.email?.toUpperCase()}
-                  src={userInfo?.photoURL ? userInfo?.photoURL: ""}
-                />
+            <Box sx={{ flexGrow: 1, display: { sm: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
               </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { sm: "block", md: "none" },
+                }}
+              >
+                {pages.map((page) => (
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <ButtonGroup
+                      orientation="vertical"
+                      aria-label="vertical contained button group"
+                      fullWidth
+                    >
+                      <NavLink to={page}>
+                        <Button>
+                          <Typography textAlign="center">{page}</Typography>
+                        </Button>
+                      </NavLink>
+                    </ButtonGroup>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+            <Typography
+              variant="h5"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, display: { sm: "flex", md: "none" } }}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">
-                    <Link to={setting}>
-                      <Button>{setting}</Button>
-                    </Link>
+              Sinan's Portfolio
+            </Typography>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <NavLink
+                to={"Main"}
+                style={({ isActive }) =>
+                  isActive ? activeStyle : nonActiveStyle
+                }
+              >
+                <Button
+                  size="large"
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "inherit", display: "block" }}
+                >
+                  <Typography variant="h6" sx={{ mx: 2 }}>
+                    Main
                   </Typography>
-                </MenuItem>
-              ))}
-              {/* Added Logout button if signin successful */}
-              {userInfo &&<MenuItem onClick={handleCloseUserMenu}>
-                 <LogoutDialog />
-              </MenuItem>}
-              {userInfo?.email==="peykani@gmail.com"&&<MenuItem onClick={handleCloseUserMenu}>
-              <Link to={"/adminPanel"}>
+                </Button>
+              </NavLink>
+              <NavLink
+                to={"Class%20Notes"}
+                style={({ isActive }) =>
+                  isActive ? activeStyle : nonActiveStyle
+                }
+              >
+                <Button
+                  size="large"
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "inherit", display: "block" }}
+                >
+                  <Typography variant="h6">Class Notes</Typography>
+                </Button>
+              </NavLink>
+            </Box>
+
+            <FormControlLabel
+              control={
+                <MaterialUISwitch
+                  sx={{ m: 1 }}
+                  onChange={() => setActiveTheme(!activeTheme)}
+                />
+              }
+              label="Dark Mode"
+            />
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  {/* avatar get from user if signin else first letter of email */}
+                  <Avatar
+                    alt={userInfo && userInfo.email?.toUpperCase()}
+                    src={userInfo?.photoURL ? userInfo?.photoURL : ""}
+                  />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {userInfo ? (
+                  <MenuItem onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">
+                        <Link to="/profile">
+                          <Button>Profile</Button>
+                        </Link>
+                      </Typography>
+                    </MenuItem>
+                 
+                ) : (
+                  settings.map((setting) => (
+                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">
+                        <Link to={setting}>
+                          <Button>{setting}</Button>
+                        </Link>
+                      </Typography>
+                    </MenuItem>
+                  ))
+                )}
+                {/* Added Logout button if signin successful */}
+                {userInfo && (
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <LogoutDialog />
+                  </MenuItem>
+                 
+                )}
+
+                {userInfo?.email === "peykani@gmail.com" && (
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Link to={"/adminPanel"}>
                       <Button>Admin Panel</Button>
                     </Link>
-              </MenuItem>}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </div>
+                  </MenuItem>
+                )}
+              </Menu>
+            </Box>
+          </Toolbar>
+        </Container>
+      </div>
     </AppBar>
   );
 };
