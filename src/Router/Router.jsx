@@ -5,12 +5,13 @@ import ClassNotes from "../pages/ClassNotes/ClassNotes";
 import Main from "../components/Main/Main";
 import Navbar from "../components/Navbar/Navbar";
 import Page404 from "../helpers/Page404";
-import { AdminRouter } from "./PrivateRouter";
+import PrivateRouter, { AdminRouter } from "./PrivateRouter";
 import SignUp from "../pages/Admin/SignUp";
 import { Box, ThemeProvider } from "@mui/material";
 import { useCustomTheme } from "../Context/ThemeContext";
 import { BlogProvider } from "../Context/DataContext";
 import Details from "../pages/ClassNotes/ClassNotesComponents/Details";
+import Profile from "../pages/Profile/Profile";
 
 const Router = () => {
   const { theme } = useCustomTheme();
@@ -36,6 +37,9 @@ const Router = () => {
               <Route path="/Class%20Notes" element={<ClassNotes />} />
               <Route path="/AdminPanel" element={<AdminRouter />}>
                 <Route path="" element={<AdminPanel />} />
+              </Route>
+              <Route path="/Profile" element={<PrivateRouter />}>
+                <Route path="" element={<Profile />} />
               </Route>
               <Route path="*" element={<Page404 />} />
             </Routes>

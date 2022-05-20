@@ -12,5 +12,9 @@ export const AdminRouter = () => {
     const {userInfo} = useSession()
 return userInfo.email==="peykani@gmail.com" ? <Outlet/>: <Navigate to="/SignIn"/>;
 }
+// export const ProfileRouter = () => {
+//     const {userInfo} = useSession()
+// return userInfo.email==="peykani@gmail.com" ? <Outlet/>: <Navigate to="/SignIn"/>;
+// }
 
 export default PrivateRouter
